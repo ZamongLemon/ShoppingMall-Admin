@@ -29,7 +29,7 @@
 
 <!-- 파비콘 -->
 </head>
-<!-- 테스트세트세테테스ssfdsfs트 -->
+<!-- 테스트 -->
 <!-- 자바스크립트 -->
 <script src="./js/jquery.min.js"></script>
 <script src="./js/jquery-ui.min.js"></script>
