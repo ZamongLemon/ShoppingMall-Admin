@@ -2762,16 +2762,16 @@ td>.goodsviewbox:first-child { border:none; }
 .cs_top2>a { float:left; box-sizing:border-box; width:calc(16.66% + 1px); height:160px; margin:-1px 0 0 -1px; border:1px #eee solid; transition:all 0.2s; }
 .cs_top2>a>.area { display:block; text-align:center; }
 .cs_top2>a>.area:before { display:block; content:''; height:100px; background-position:50% 50%; background-size:56px; background-repeat:no-repeat; opacity:0.4; transition:opacity 0.2s; }
-.cs_top2>a.menu1>.area:before { background-image:url(../images/common/icon_cs_01.png); }
-.cs_top2>a.menu2>.area:before { background-image:url(../images/common/icon_cs_02.png); }
-.cs_top2>a.menu3>.area:before { background-image:url(../images/common/icon_cs_03.png); }
-.cs_top2>a.menu4>.area:before { background-image:url(../images/common/icon_cs_04.png); }
-.cs_top2>a.menu5>.area:before { background-image:url(../images/common/icon_cs_05.png); }
-.cs_top2>a.menu6>.area:before { background-image:url(../images/common/icon_cs_06.png); }
-.cs_top2>a.menu7>.area:before { background-image:url(../images/common/icon_cs_07.png); }
-.cs_top2>a.menu8>.area:before { background-image:url(../images/common/icon_cs_08.png); }
-.cs_top2>a.menu9>.area:before { background-image:url(../images/common/icon_cs_09.png); }
-.cs_top2>a.menu10>.area:before { background-image:url(../images/common/icon_cs_10.png); }
+.cs_top2>a.menu1>.area:before { background-image:url(../ico/icon_cs_01.png); }
+.cs_top2>a.menu2>.area:before { background-image:url(../ico/icon_cs_02.png); }
+.cs_top2>a.menu3>.area:before { background-image:url(../ico/icon_cs_03.png); }
+.cs_top2>a.menu4>.area:before { background-image:url(../ico/icon_cs_04.png); }
+.cs_top2>a.menu5>.area:before { background-image:url(../ico/icon_cs_05.png); }
+.cs_top2>a.menu6>.area:before { background-image:url(../ico/icon_cs_06.png); }
+.cs_top2>a.menu7>.area:before { background-image:url(../ico/icon_cs_07.png); }
+.cs_top2>a.menu8>.area:before { background-image:url(../ico/icon_cs_08.png); }
+.cs_top2>a.menu9>.area:before { background-image:url(../ico/icon_cs_09.png); }
+.cs_top2>a.menu10>.area:before { background-image:url(../ico/icon_cs_10.png); }
 .cs_top2>a>.area>span { display:block; }
 .cs_top2>a>.area>span.text1 { font-size:14px; font-weight:400; color:#333; }
 .cs_top2>a>.area>span.text2 { padding-top:5px; font-size:15px; font-weight:400; color:#333; }
