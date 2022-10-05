@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="dao.noticedao"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% List<noticedao> lists = (List<noticedao>)request.getAttribute("noticelist"); 
+%>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"  xmlns:fb="http://ogp.me/ns/fb#"  xmlns:og="http://ogp.me/ns#">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/fb/website#">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,7 +34,7 @@
 
 <!-- 파비콘 -->
 </head>
-<!-- 테스트 -->
+
 <!-- 자바스크립트 -->
 <script src="./js/jquery.min.js"></script>
 <script src="./js/jquery-ui.min.js"></script>
@@ -47,88 +52,26 @@
 <script src="./js/swiper.js"></script>
 <body>
 <style>
-#layout_body {
-background-color:#ffffff;}
-#layer_pay {position:absolute;top:0px;width:100%;height:100%;background-color:#ffffff;text-align:center;z-index:999999;}
-#payprocessing {text-align:center;position:absolute;width:100%;top:150px;z-index:99999999px;}
-#layout_body { max-width:100%; padding-left:0; padding-right:0; }
-#layout_footer { margin-top:0; }
+        #layout_body { background-color:#ffffff; }
+        #layer_pay {position:absolute;top:0px;width:100%;height:100%;background-color:#ffffff;text-align:center;z-index:999999;}
+        #payprocessing {text-align:center;position:absolute;width:100%;top:150px;z-index:99999999px;}
+        #layout_body { max-width:100%; padding-left:0; padding-right:0; }
+        #layout_footer { margin-top:0; }
 </style>
 
 <div id="wrap">
 <div id="layout_wrap" class="layout_wrap">
     <%@ include file="./pagesources/top.html" %>
 </div>
-<div class="sliderA wide_visual_slider">
-    <%@ include file="./pagesources/banner.html" %>
+		
+<div class="resp_wrap display_wrap">
+<%@ include file="./pagesources/notice_list.html" %>
 </div>
 
-<div class="resp_wrap display_wrap">
-   <%@ include file="./pagesources/collection.html" %>
-</div>
-<br/>
-<br/>
-<br/>
-<div class="full_bnr">
-        <%@ include file="./pagesources/av.html" %>
-</div>
-<div class="full_bnr2">
-       <%@ include file="./pagesources/av2.html" %>
-</div>
-<div class="resp_wrap display_wrap">
-       <%@ include file="./pagesources/newproduct.html" %>
-</div>
-<div class="resp_wrap display_wrap">
-        <%@ include file="./pagesources/bestproduct.html" %>
-</div>
 <div id="layout_footer" class="layout_footer">
-        <%@ include file="./pagesources/footer.html" %>
+     <%@ include file="./pagesources/footer.html" %>
 </div>
 
-<script type="text/javascript">
-	$(function() {
-		/* 반응형 슬라이드 배너 관련( 절대 삭제 금지 ) */
-			$('.slider_before_loading').removeClass('slider_before_loading');
-
-		// 상품 색상 코드값 디자인( new 상품정보 )
-		if ( $('.displaY_color_option').length > 0 ) {
-			$('.displaY_color_option .areA').filter(function() {
-				return ( $(this).css('background-color') == 'rgb(255, 255, 255)' );
-			}).addClass('border');
-		}
-
-		$( window ).on('resize', function() {
-			if ( window.innerWidth != WINDOWWIDTH ) {
-				setTimeout(function(){ WINDOWWIDTH = window.innerWidth; }, 10);
-			}
-		});
-	});
-
-   	function loadbestproduct(){
-   		$.ajax({
-   		    url: "bestproduct", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-   		    data: { tablename: "temptable" },  // HTTP 요청과 함께 서버로 보낼 데이터
-   		    method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-   		    dataType: "JSON", // 서버에서 보내줄 데이터의 타입,
-   		    success : function(data){
-   		    	console.log(data);
-   		    	var len = data.length;
-   		    	var base = $("#bestproductlist");
-   		    	for(var i = 0 ; i < len ; i++){
-   		    		var innerwrap = document.createElement("div");
-   		    		innerwrap.className= "gl_inner_item_wrap";
-   		    		
-   		    	}
-   		    },
-   		    fail:function(){
-   		    	console.log("fail");
-   		    }
-   		    
-   		})   		
-   	};
-   	
-    loadbestproduct();
-</script>
-
+</div>
 </body>
 </html>
