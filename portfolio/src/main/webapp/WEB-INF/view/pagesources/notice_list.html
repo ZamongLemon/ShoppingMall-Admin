@@ -36,16 +36,19 @@ $(function() {
 <ul class="bbs_top_wrap">
     <li class="left">
         <select name="category" id="searchcategory">
-            <option value="" selected="selected">- 전체 -</option>
-            <option value="공지" >공지</option>
-            <option value="긴급공지" >긴급공지</option>
+            <option value="0" >- 전체 -</option>
+            <option value="1" >공지</option>
+            <option value="2" >긴급공지</option>
         </select>
     </li>
     <li class="right2">
         <span class="searchform">
-            <input type="text" name="search_text" id="search_text" class="res_bbs_search_input" value="" title="제목, 내용" />
-            <button type="submit" class="btn_resp size_b">검색</button>
-            <button type="button" class="btn_resp size_b">초기화</button>
+        <form id="searchform" name="searchform">
+        <input type="hidden" name="t" value="">
+            <input type="text" name="w" id="search_text" class="res_bbs_search_input" value="" title="제목, 내용" />
+            <button type="submit" class="btn_resp size_b" onsubmit="return search()">검색</button>
+            <button type="button" class="btn_resp size_b" id="init">초기화</button>
+        </form>
         </span>
     </li>
 </ul>
@@ -78,7 +81,7 @@ $(function() {
  for(int i =0  ; i < len;i ++){%>
 <ul class="tbody">
 <li class="mo_hide">
-<span class="mtitle" designElement="text">번호:</span><%=lists.get(i).getBn_idx()%></li>
+<span class="mtitle" designElement="text">번호:</span><%=cnt-(cp*5+i)%></li>
 <li class="subject">
     <%=lists.get(i).getBn_title()%>
 </li>

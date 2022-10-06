@@ -2,7 +2,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% List<noticedao> lists = (List<noticedao>)request.getAttribute("noticelist"); 
+<%  List<noticedao> lists = (List<noticedao>)request.getAttribute("noticelist");
+	int cnt = (int)request.getAttribute("cnt");
+	int cp = (int)request.getAttribute("page");
 %>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"  xmlns:fb="http://ogp.me/ns/fb#"  xmlns:og="http://ogp.me/ns#">
@@ -74,4 +76,31 @@
 
 </div>
 </body>
+<script>
+	const noticetype = document.querySelector("#searchcategory");
+	noticetype.value = "<%=request.getAttribute("type")%>";
+	noticetype.addEventListener('change',(event)=>{
+		window.location.replace("notice?t="+noticetype.value);			
+	});
+	
+	const init = document.querySelector("#init");
+	init.addEventListener('click',(event)=>{
+		window.location.replace("notice");		
+	});
+	function search(){
+
+		if(searchform.w.value==""){
+			alert("?");
+			return false;
+		}else{			
+		searchform.t.value = noticetype.value;
+		searchform.method="get";
+		searchform.submit();
+		}
+		
+		
+	}
+	console.log("<%=cp%>");
+	
+</script>
 </html>

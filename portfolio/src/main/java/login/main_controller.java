@@ -58,13 +58,19 @@ public class main_controller {
 		@RequestMapping("notice")
 		public String sdfseae(HttpServletRequest req) {
 			String page = req.getParameter("p");
+			String type = req.getParameter("t");
+			String word = req.getParameter("w");
+
+			if(page==null || page=="") page="0";
 			noticemodel n = new noticemodel(dbsource);
 			List<noticedao> lists = new ArrayList<>();
-			if(page!=null && Integer.valueOf(page) > 0) {
-				lists = n.returnnotices(5*(Integer.valueOf(page)-1),5);				
-			}else {
-				lists = n.returnnotices(0, 5);
-			}
+			if(type==null || type=="") type="0";
+			
+
+			lists = n.returnnotices(Integer.valueOf(page), 5, Integer.valueOf(type), word);
+			req.setAttribute("cnt", n.countbn(Integer.valueOf(page), 5, Integer.valueOf(type), word));
+			req.setAttribute("type", type);
+			req.setAttribute("page", Integer.valueOf(page));
 			req.setAttribute("noticelist", lists);
 			return "notice";
 		}
