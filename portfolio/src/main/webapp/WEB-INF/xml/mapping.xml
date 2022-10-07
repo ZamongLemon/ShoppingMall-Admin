@@ -15,5 +15,5 @@
 		<jsp prefix="/WEB-INF/view/" suffix=".jsp" />
 	</view-resolvers>
 		<context:component-scan
-		base-package="login" />
+		base-package="login,adminpage" />
 </beans:beans>
