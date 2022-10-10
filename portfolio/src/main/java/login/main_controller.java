@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.faqdao;
@@ -21,7 +22,9 @@ public class main_controller {
 	@Autowired
 	BasicDataSource dbsource;
 		@RequestMapping("")
-		public String sfsfdf() {
+		public String sfsfdf(Model m ) {
+			
+			m.addAttribute("app", "app");
 			return "index";
 		}
 		
@@ -73,6 +76,11 @@ public class main_controller {
 			req.setAttribute("page", Integer.valueOf(page));
 			req.setAttribute("noticelist", lists);
 			return "notice";
+		}
+		
+		@RequestMapping("items")
+		public String sdfsea23e(HttpServletRequest req) {
+			return "item";
 		}
 		
 }

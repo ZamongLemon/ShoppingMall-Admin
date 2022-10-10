@@ -11,4 +11,5 @@ public class faqdao {
 	private String title;
 	private String text;
 	
+	
 }

@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+<meta charset="UTF-8">
+<div class="header_div">
+    <p><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
+    <p><% if(acc!=null){%><%=acc.g_name()%><%}%> 
+    <a href="#">[개인정보 수정]</a> <a href="#" id="lgajax">[로그아웃]</a></p>
+</div>
+<script>
+$(function(){
+	
+	$("#lgajax").on("click",function(){
+		$.ajax({
+
+			url: "./logout.do",
+			dataType:"text",
+			data: {"lgout":true}, 
+			method:"post",
+			success: function(data) {
+			if(data=="true"){
+				location.reload();
+			}
+			},
+			error:function(){
+				console.log("error");
+			}
+		});
+
+	});
+});
+</script>

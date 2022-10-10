@@ -54,7 +54,6 @@ background-color:#ffffff;}
 #layout_body { max-width:100%; padding-left:0; padding-right:0; }
 #layout_footer { margin-top:0; }
 </style>
-
 <div id="wrap">
 <div id="layout_wrap" class="layout_wrap">
     <%@ include file="./pagesources/top.html" %>
@@ -62,7 +61,6 @@ background-color:#ffffff;}
 <div class="sliderA wide_visual_slider">
     <%@ include file="./pagesources/banner.html" %>
 </div>
-
 <div class="resp_wrap display_wrap">
    <%@ include file="./pagesources/collection.html" %>
 </div>

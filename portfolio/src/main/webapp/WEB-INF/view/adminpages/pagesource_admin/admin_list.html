@@ -1,0 +1,102 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+<meta charset="UTF-8">
+<p>신규등록 관리자</p>
+<ol class="new_admin_title">
+    <li>NO</li>
+    <li>관리자명</li>
+    <li>아이디</li>
+    <li>전화번호</li>
+    <li>이메일</li>
+    <li>담당부서</li>
+    <li>담당직책</li>
+    <li>가입일자</li>
+    <li>승인여부</li>
+</ol>
+<!-- <ol class="new_admin_none"> -->
+<!--     <li>신규 등록된 관리자가 없습니다.</li> -->
+<!-- </ol> -->
+
+<!-- <ol class="new_admin_lists"> -->
+<!--     <li>1</li> -->
+<!--     <li>한석봉</li> -->
+<!--     <li>hansbong</li> -->
+<!--     <li>01012345678</li> -->
+<!--     <li>hansbong@hanmail.net</li> -->
+<!--     <li>디자인팀</li> -->
+<!--     <li>주임</li> -->
+<!--     <li>2022-08-12</li> -->
+<!--     <li> -->
+<!--         <input type="button" value="승인" class="new_addbtn1" title="승인"> -->
+<!--         <input type="button" value="미승인" class="new_addbtn2" title="미승인"> -->
+<!--     </li> -->
+<!-- </ol> -->
+
+<script>
+
+var part = ["임원","전산팀","디자인팀","CS팀","MD팀"];
+var grade = ["대표","부장","팀장","과장","대리","사원"];
+<%ArrayList<admindao> al = new admindao().all_list();
+int j = al.size();
+if(j==0){
+	
+}else{
+	
+for(int k = 1 ; k < j; k++){
+%>
+
+var adl = document.getElementById("ad_list");
+var o = document.createElement("ol");
+o.className="new_admin_lists";
+var l = [];
+
+for(var i = 0 ; i < 9;i++){
+	l[i]=document.createElement("li");
+	o.append(l[i]);
+}
+
+l[0].innerText = <%=k%>;
+l[1].innerText = '<%=al.get(k).g_name()%>';
+l[2].innerText = '<%=al.get(k).g_id()%>';
+l[3].innerText = '<%=al.get(k).g_tel()%>';
+l[4].innerText = '<%=al.get(k).g_mail()%>';
+l[5].innerText = part[<%=al.get(k).g_part()%>];
+l[6].innerText = grade[<%=al.get(k).g_grade()%>];
+l[7].innerText = '<%=al.get(k).g_signed()%>'.substring(0,10);
+l[8].innerHTML = "<input type='button' value='승인' class='new_addbtn1' title='승인' onclick='apply(1,"+<%=al.get(k).g_idx()%>+")'> <input type='button' value='미승인' class='new_addbtn2' title='미승인' onclick='apply(0,"+<%=al.get(k).g_idx()%>+")'>";
+
+
+//"<input type='button' value='미승인' class='new_addbtn2' title='미승인'>";
+
+adl.append(o);
+
+
+<%}}%>
+
+function apply(a,b){
+		
+
+		var url = "./adminapproval?approve="+a+"&idx="+b;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);		
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200 || xhr.status == 201){
+
+					console.log(xhr.responseText);
+				}
+				else {
+					console.log("fail");   				
+				}    				
+			}    			
+		}
+		xhr.send(); //post 쿼리 파람 방식일때 null    					    		    		
+								
+
+}
+
+
+</script>

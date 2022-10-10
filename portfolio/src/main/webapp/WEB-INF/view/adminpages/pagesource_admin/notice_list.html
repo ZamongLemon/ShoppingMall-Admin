@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<meta charset="UTF-8">
+<p>공지사항 관리페이지</p>
+<div class="subpage_view" id="notice_table">
+<ul>
+    <li><input type="checkbox" name="ckall"></li>
+    <li>NO</li>
+    <li>제목</li>
+    <li>글쓴이</li>
+    <li>날짜</li>
+    <li>조회</li>
+</ul>
+<!-- <ol> -->
+<!--     <li><input type="checkbox" name="cbox"></li> -->
+<!--     <li>1</li> -->
+<!--     <li>테스트 제목</li> -->
+<!--     <li>관리자</li> -->
+<!--     <li>2022-08-17</li> -->
+<!--     <li>100</li> -->
+<!-- </ol> -->
+<!-- <ol class="none_text"> -->
+<!--     <li>등록된 공지 내용이 없습니다.</li> -->
+<!-- </ol> -->
+</div>
+<div class="board_btn">
+    <button class="border_del">공지삭제</button>
+    <button class="border_add" onclick="location.href='./notice_write'">공지작성</button>
+</div>
+<div class="border_page">
+    <ul class="pageing" id="pagemove">
+        <li id="tofirst"><img src="./ico/double_left.svg"></li>
+        <li id="prpage"><img src="./ico/left.svg"></li>
+        <li id="nxpage"><img src="./ico/right.svg"></li>
+        <li id="toend"><img src="./ico/double_right.svg"></li>
+    </ul>
+</div>
