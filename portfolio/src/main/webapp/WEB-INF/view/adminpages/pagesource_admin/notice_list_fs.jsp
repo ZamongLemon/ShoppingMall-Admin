@@ -2,7 +2,7 @@
 
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%
  List<notice_board_dao> listnotice = (List<notice_board_dao>)request.getAttribute("listA");
  List<notice_board_dao> listnormal = (List<notice_board_dao>)request.getAttribute("listB");
@@ -23,7 +23,7 @@
 		o.append(l[i]);
 	}
 
-	l[0].innerHTML="<input type='checkbox' name='cbox'>";
+	l[0].innerHTML="<input type='checkbox' name='cbox' id='<%=listnotice.get(p).return_values(0)%>' >";
 	l[1].innerText="<%=p+1%>";
 	l[2].innerText="<%=listnotice.get(p).return_values(1)%>";
 	l[3].innerText="<%=listnotice.get(p).return_values(2)%>";
@@ -44,11 +44,11 @@ for(int m = 0 ; m < n ; m++){%>
 		o.append(l[i]);
 	}
 	
-	l[0].innerHTML="<input type='checkbox' name='cbox'>";
-	l[1].innerText="<%=whole-m-(pn-1)*pv%>";
+	l[0].innerHTML="<input type='checkbox' name='cbox' id='<%=listnormal.get(m).return_values(0)%>'>";
+	l[1].innerText="<%=whole - m - (pn - 1) * pv%>";
 	l[2].innerText="<%=listnormal.get(m).return_values(1)%>";
 	l[3].innerText="<%=listnormal.get(m).return_values(2)%>";
-	l[4].innerText="<%=listnormal.get(m).return_values(5).substring(0,19)%>";
+	l[4].innerText="<%=listnormal.get(m).return_values(5).substring(0, 19)%>";
 	l[5].innerText="<%=listnormal.get(m).return_values(7)%>";
 	
 	d.append(o);
@@ -57,7 +57,7 @@ for(int m = 0 ; m < n ; m++){%>
 
 
 var currentpage = <%=request.getAttribute("pn")%>
-var endp = Math.ceil(<%=(double)whole%>/<%=(double)pv%>);
+var endp = Math.ceil(<%=(double) whole%>/<%=(double) pv%>);
 var loop = 0;
 	if( Math.floor(endp/10) <= Math.floor(currentpage/10)){
 		loop = Math.floor((endp/10 - Math.floor(endp/10))*10);
@@ -142,4 +142,29 @@ var loop = 0;
  		 }
  		 return (h+newps.substring(0,newps.length-1));
 	 }
-</script>    
+	 
+	 function del_notice(){
+		var k = document.getElementsByName("cbox");
+		var n = [];		
+		var cnt = 0;
+		for(var i = 0 ; i < k.length; i++){
+			if(k[i].checked){				
+			n[cnt] = k[i].id;			
+			cnt++;
+			}
+		}
+		if(n.length!=0 && confirm("공지사항을 삭제하시겠습니까? (데이터는 복구 불가능합니다.)")){
+			$.ajax({
+			    url: "del_notice", 
+			    data: { "key": n.toString()},                        
+			    method: "post",                      
+			    dataType: "text",
+			    success: function(data){
+					location.reload();
+				},error: console.log("error")
+				});
+		}
+	}
+
+
+</script>

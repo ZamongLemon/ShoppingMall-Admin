@@ -1,0 +1,120 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<meta charset="UTF-8">
+<p>상품 등록 페이지</p>
+<div class="product_insert">
+    <ul>
+        <li>대메뉴 카테고리</li>
+        <li>
+            <select id = "lg_menu">
+            
+            </select>
+            
+        </li>
+    </ul>
+    <ul>
+        <li>소메뉴 카테고리</li>
+        <li>
+            <select id = "sm_menu">
+            
+            </select>
+        </li>
+    </ul>
+    <ul>
+        <li>상품코드</li>
+        <li>
+            <input type="text" class="product_input1" id="category_code" style="text-align:right" readonly >
+            <input type="text" class="product_input1" id="product_code" maxlength="4"> 
+            <input type="hidden" name="pdd_code">
+            <input type="button" value="중복확인" title="중복확인" class="product_btn" id="code_button"> <span class="help_text">※ 상품코드는 합 8자리의 숫자입니다. 중복될 수 없습니다.</span>
+        </li>
+    </ul>
+    <ul>
+        <li>상품명</li>
+        <li>
+            <input type="text" class="product_input2" maxlength="100" name="pdd_name"> <span class="help_text">※ 상품명은 최대 100자까지만 적용할 수 있습니다.</span>
+        </li>
+    </ul>
+    <ul>
+        <li>상품 부가설명</li>
+        <li>
+            <input type="text" class="product_input4" maxlength="200" name="pdd_explain"> <span class="help_text">※ 상품명은 최대 200자까지만 적용할 수 있습니다.</span>
+        </li>
+    </ul>
+    <ul>
+        <li>판매가격</li>
+        <li>
+            <input type="text" class="product_input3" maxlength="7" name="pdd_nprice" id="pdd_nprice"> <span class="help_text">※ , 없이 숫자만 입력하세요 최대 7자리</span>
+        </li>
+    </ul>
+    <ul>
+        <li>할인율</li>
+        <li>
+            <input type="text" class="product_input3" maxlength="2" value="0" name="pdd_saleper" id="pdd_saleper">% <span class="help_text">※ 숫자만 입력하세요</span>
+        </li>
+    </ul>
+    <ul>
+        <li>할인가격</li>
+        <li>
+            <input type="text" class="product_input3" maxlength="7" value="0" name="pdd_sprice" id="pdd_sprice" readonly> <span class="help_text">※ 할인율이 0%일 경우 할인가격은 0으로 처리 합니다.</span>
+        </li>
+    </ul>
+    <ul>
+        <li>상품재고</li>
+        <li>
+            <input type="text" class="product_input3" maxlength="4" value="0" name="pdd_ea" id="pdd_ea">EA <span class="help_text">※ 숫자만 입력하세요. 재고가 0일 경우 soldout이 됩니다.</span>
+        </li>
+    </ul>
+    <ul>
+        <li>판매 유/무</li>
+        <li>
+            <label class="product_label">
+            <input type="radio" value="1" name="pdd_issale" style="vertical-align:-1px;" checked> 판매시작
+            </label>
+            <label class="product_label">
+            <input type="radio" value="0" name="pdd_issale" style="vertical-align:-1px;"> 판매종료
+            </label> <span class="help_text">※ 숫자만 입력하세요. 재고가 0일 경우 soldout이 됩니다.</span>
+        </li>
+    </ul>
+    <ul>
+        <li>조기품절</li>
+        <li>
+            <label class="product_label">
+                <input type="radio" value="1" name="pdd_fastsoldout" style="vertical-align:-1px;"> 사용
+            </label>
+            <label class="product_label">
+                <input type="radio" value="0" name="pdd_fastsoldout" style="vertical-align:-1px;" checked> 미사용
+            </label>
+        </li>
+    </ul>
+    <ul style="height: 160px;">
+        <li>상품 대표이미지</li>
+        <li>
+            <ol style="width:100%; height: auto;">
+            <li style="width:100%; height:45px;">
+            <input type="file" name="pdd_imgurl" accept="image/*">
+            <span class="help_text">※ 상품 대표이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
+            </li>
+            <li style="height:45px;">
+            <input type="file" name="pdd_suburl"  accept="image/*">
+            <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
+            </li>
+            <li style="height:45px;">
+            <input type="file" name="pdd_suburl2"  accept="image/*">
+            <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
+            </li>
+            </ol>
+        </li>
+    </ul>
+    <ul style="height: 400px;">
+        <li>상품 상세설명</li>
+        <li>
+            <textarea name="pdd_detail" id="pdd_detail" class="product_text1" style="resize:none;"></textarea>
+        </li>
+    </ul>
+</div>
+<div class="subpage_view4" style="text-align:center;">
+    <input type="button" value="상품 리스트" title="상품 리스트"   onclick="location.href='./productlist.do?p=1'" class="p_button p_button_color1" style="margin-right: 5px;">
+    <input type="button" value="상품 등록" title="상품 등록" onclick="submproduct()"class="p_button p_button_color2">
+    </span>
+</div>

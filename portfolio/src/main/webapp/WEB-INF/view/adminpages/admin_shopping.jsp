@@ -40,7 +40,7 @@
 </body>
 <script>
 	function makeCoupon(){
-		location.href="./admin_coupon_config.jsp";
+		location.href="./coupon_config";
 	}
 	
 	function makeCouponLists(){

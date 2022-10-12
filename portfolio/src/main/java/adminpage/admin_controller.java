@@ -1,14 +1,22 @@
 package adminpage;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletRequest;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +25,18 @@ import adminpage.dao.admindao;
 import adminpage.dao.coupon_dao;
 import adminpage.dao.notice_board_dao;
 import adminpage.dao.product_dao;
+import adminpage.model.admin_couponinsder_model;
 import adminpage.model.admin_login_model;
+import adminpage.model.admin_notice_model;
 
 
+
+@MultipartConfig(
+		
+		fileSizeThreshold = 1024 * 1024 *1,
+		maxFileSize= 1024*1024*2, 
+		maxRequestSize = 1024*1024*4 
+)
 @Controller
 public class admin_controller {
 
@@ -162,5 +179,86 @@ public class admin_controller {
 
 	}
 	
+	@RequestMapping("admin/writenotice")
+	public void sadfaews(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		request.setCharacterEncoding("utf-8");	
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter pwr = response.getWriter();
+		String savepath =  request.getServletContext().getRealPath("") + "admin\\upload\\";		
+		Part filepart = request.getPart("bn_file");	
+		String bn_file = null;
+		String p = filepart.getSubmittedFileName().intern();
+		String[] params = {"bn_title","bn_name","bn_txt","bn_ontop"};
+		ArrayList<String> vals = new ArrayList<>(); 
+		if(p!="") {			
+		p = p.substring(p.lastIndexOf(".")+1);
+		LocalDateTime ldt = LocalDateTime.now();
+		ldt.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSSS"));
+		String dt = new SimpleDateFormat("yyyyMMddHHmmssSSSS").format(new Date());
+		p = dt+"upd."+p;
+		String url = (savepath+p).replace("/puhu17/tomcat/webapps",".");
+		filepart.write(url);
+			bn_file= url;
+		}else {
+			bn_file="default";
+		}
+		String ont = request.getParameter(params[3]);
+		int j = params.length;
+		for(int i = 0 ; i < j-1; i++) {
+			vals.add(request.getParameter(params[i]));
+		}
+		if(ont==null) vals.add("0"); else vals.add(ont);
+		vals.add(2,bn_file);
+		admin_notice_model nm = new admin_notice_model();
+		try {
+			if(nm.write_notice(vals)) {				
+				response.sendRedirect("./notice");
+			}else {System.out.println("fail");}
+		}catch(Exception e) {
+		}finally {
+		}
+
+	}
+	
+	@RequestMapping("admin/coupon_config")
+	public String s342124df(HttpServletRequest request) throws Exception {
+
+		return "adminpages/admin_coupon_config";
+
+	}
+	
+	@RequestMapping("admin/couponinsert")
+	public void aer2312(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		ArrayList<String> vals = new ArrayList<>();
+		Part pt = request.getPart("cp_imgurl");
+		String name = pt.getSubmittedFileName().intern();
+		String url =  request.getServletContext().getRealPath("")+"admin\\coupon_img";
+		String cp_imgurl=null;
+		File f = new File(url);
+		if(!f.isDirectory()) f.mkdir();
+		if(name!="") {
+			url = (url+"\\"+name).replace("/puhu17/tomcat/webapps",".");
+			pt.write(url);
+			cp_imgurl= url;
+		}else {
+			cp_imgurl="default";
+		}
+		String[] params = {"cp_name","cp_type1","cp_start","cp_end","cp_type2","cp_discount","cp_minimum"};
+		int j = params.length;
+		for(int i = 0 ; i < j ; i++) {
+			vals.add(request.getParameter(params[i]));
+		}
+		vals.set(2,vals.get(2) +" 00:00:00");
+		vals.set(3,vals.get(3) +" 23:59:59");
+				
+		vals.add(cp_imgurl);
+		
+		admin_couponinsder_model c = new admin_couponinsder_model();
+		if(c.insert_datas(vals)) 		
+		response.sendRedirect("./shopping");
+
+	}
 
 }
