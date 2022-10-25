@@ -1,4 +1,4 @@
-<%@page import="adminpage.dao.admindao"%>
+<%@ page import="adminpage.dao.admindao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page session="true"%>
