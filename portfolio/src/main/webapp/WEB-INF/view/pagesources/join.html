@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <div class="title_container">
 	<h2><span designElement="text" textIndex="1">회원정보 입력</span></h2>
 </div>
@@ -15,14 +15,14 @@
 			<ul class="required">
 				<li class="th "><p designElement="text" textIndex="8" >아이디</p></li>
 				<li class="td">
-						<input type="text" id="userid" autocapitalize="off" value="" class="eng_only" placeholder="공백 없는 영문/숫자 포함 6~20자" />
+						<input type="text" id="userid" autocapitalize="off" name="id"value="" class="eng_only" placeholder="공백 없는 영문/숫자 포함 6~20자" />
 						<p id="id_info" class="guide_text"></p>
 				</li>
 			</ul>
 				<ul class="required">
-					<li class="th "><p designElement="text" textIndex="11" >비밀번호</p></li>
+					<li class="th "><p designElement="text" textIndex="11"  >비밀번호</p></li>
 					<li class="td">
-						<input type="password" value="" class="eng_only class_check_password_validation" />
+						<input type="password" value="" class="eng_only class_check_password_validation" name="password"/>
 					</li>
 				</ul>
 				<ul class="required">
@@ -34,14 +34,15 @@
 				<ul class="required">
 					<li class="th"><p designElement="text" textIndex="13" >이름</p></li>
 					<li class="td">
-						<input type="text" value=""  />
+						<input type="text" value="" name="name" />
 					</li>
 				</ul>
 			<ul class="required">
 				<li class="th "><p designElement="text" textIndex="14" >이메일</p></li>
 				<li class="td">
-					<input type="email" value="" class="size_mail1" /> @
-					<input type="email" value="" class="size_mail2" />
+					<input type="hidden" value="" name="email"/>
+					<input type="text" value="" id="mail1" name="mail1" class="size_mail1" /> @
+					<input type="text" value="" id="mail2" name="mail2"class="size_mail2" />
 					<select id="find_email">
 						<option value="">직접입력</option>
 							<option value="naver.com">naver.com</option>
@@ -63,26 +64,29 @@
 			<ul class="required">
 				<li class="th "><p designElement="text" textIndex="16" >휴대폰번호</p></li>
 				<li class="td">
-					<input type="tel" value="" class="size_phone" maxlength="4"  /> -
-					<input type="tel" value="" class="size_phone" maxlength="4"  /> -
-					<input type="tel" value="" class="size_phone" maxlength="4"  />
+					<input type="hidden" name="phone">
+					<input type="tel" value="" name="phone1"class="size_phone" maxlength="4"  /> -
+					<input type="tel" value="" name="phone2"class="size_phone" maxlength="4"  /> -
+					<input type="tel" value="" name="phone3"class="size_phone" maxlength="4"  />
 				</li>
 			</ul>
 			<ul >
 				<li class="th "><p designElement="text" textIndex="22" >주소</p></li>
 				<li class="td">
 					<input type="hidden" value=""/>
-					<input type="tel" value="" class="size_zip_all" readonly />
-					<button type="button" class="btn_resp size_b color4"><span designElement="text" textIndex="23" >주소찾기</span></button>
+					<input type="tel" value="" class="size_zip_all postcodify_postcode5" name="postcode" readonly />
+					<button type="button" class="btn_resp size_b color4" id="addrbutton">
+					<span designElement="text" textIndex="23" >주소찾기</span></button>
 					<div class="address_area">
-						<input type="text" value="" class="address size_full " readonly />
-						<input type="text" value="" class="address_street size_full hide" readonly />
+						<input type="text" name="addr1" value="" class="address size_full postcodify_address " readonly />
+						<input type="text" name="addr2"value="" class="address_street size_full hide postcodify_details" readonly />
 					</div>
 					<div class="address_area">
-						<input type="text" value="" class="size_full" />
+						<input type="text" name="addr3" value="" class="size_full postcodify_extra_info" />
 					</div>
 					<p id="address_view" style="padding-top:5px; display:none;"></p>
 				</li>
+				
 			</ul>
 
 	</div>
@@ -130,10 +134,11 @@
 		/* ========== //반응형 프론트엔드 추가 ========= */
 	});
 </script>
+<script> $(function() { $("#addrbutton").postcodifyPopUp(); }); </script>
 	<!-- ------- //회원가입 입력폼 ------- -->
 
 	<div id="btn_register" class="btn_area_c">
-		<button type="submit" class="btn_resp size_c color2 Wmax">
+		<button type="button" onclick="signsubmit()"class="btn_resp size_c color2 Wmax">
 		<span designElement="text">입력 완료</span>
 		</button>
 	</div>

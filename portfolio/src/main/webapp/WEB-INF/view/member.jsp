@@ -58,10 +58,12 @@
 <div id="layout_wrap" class="layout_wrap">
     <%@ include file="./pagesources/top.html" %>
 </div>
-		
+
+<form name="f">
 <div class="resp_wrap display_wrap">
 <%@ include file="./pagesources/join.html" %>
 </div>
+</form>		
 
 <div id="layout_footer" class="layout_footer">
      <%@ include file="./pagesources/footer.html" %>
@@ -69,4 +71,30 @@
 
 </div>
 </body>
+<script>
+ function signsubmit () {
+	var obj= { "id" : f.id.value,
+         "password" : f.password.value,
+         "name" :f.name.value,
+         "email" : f.mail1.value+"@"+f.mail2.value,
+         "phone" : f.phone1.value+f.phone2.value+f.phone3.value,
+         "address" : f.postcode.value+" "+f.addr1.value+" "+f.addr2.value+" "+f.addr3.value}
+		alert(JSON.stringify(obj));
+		 $.ajax({
+		    type: "POST",
+		    url : "signin",
+		    data : JSON.stringify(obj),
+		    contentType : "application/json",
+		    dataType : "json",
+		    success : function(data){
+		        alert("suc")
+		    },error : function(){
+		    	alert("fail")
+		    }
+		});
+}
+
+
+</script>
+</script>
 </html>
