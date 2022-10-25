@@ -1,5 +1,5 @@
 	function addM(){
-		location.href="./add_master.html";
+		location.href="./addmaster";
 	}
 
 	function adminlgnsubmit(){

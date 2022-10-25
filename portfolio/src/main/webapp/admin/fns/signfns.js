@@ -18,7 +18,7 @@
 			
 			$.fn.check = function ($id){
 			$.ajax({
-				url:"admin_overlap_check.do",
+				url:"admin_overlap_check",
 				cache : false,
 				type : "POST",
 				data :{a_id:$id},
@@ -63,7 +63,7 @@
 			alert("비밀번호를 입력하세요.");
 		}else if(pw2==""){
 			alert("확인 비밀번호를 입력하세요.");
-		}else if(pw2.intern() != a_frm.a_pw.value.intern()){
+		}else if(pw2 != a_frm.a_pw.value){
 			alert("비밀번호가 일치하지 않습니다.");
 		}else if(a_frm.a_name.value==""){
 			alert("이름을 입력하세요.");

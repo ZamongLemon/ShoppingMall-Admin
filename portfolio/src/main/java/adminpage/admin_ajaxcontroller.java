@@ -1,12 +1,17 @@
 package adminpage;
 
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,10 +24,32 @@ import adminpage.dao.notice_board_dao;
 import adminpage.model.admin_callset_model;
 import adminpage.model.admin_siteset_model;
 import adminpage.model.adminapprv;
+import adminpage.model.asignmodule;
+import adminpage.model.config;
 
 @RestController
 public class admin_ajaxcontroller {
+	@PostMapping("admin/admin_overlap_check")
+	public void adminOverlap(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		String p = request.getParameter("a_id");
+		asignmodule am = new asignmodule();
+		PrintWriter pwr = response.getWriter();
+		try {
+			
+		if(am.overlap_check(p)) {
+			pwr.print("no");
+		}else {
+			pwr.print("ok");
+		}
 		
+		}catch(Exception e) {
+			
+		}finally {
+			pwr.close();
+		}
+	}
+	
 	@PostMapping("admin/adminapproval")
 	public void asdfasd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
@@ -106,6 +133,63 @@ public class admin_ajaxcontroller {
 			session.invalidate();
 		}
 		pwr.print(id);
+	
+	}
+	
+	@GetMapping("admin/smallcode")
+	public void getsmallcode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		String small = request.getParameter("key");
+		Connection con = new config().dbc();
+		String sql = "select pdc_smallcode from product_category where pdc_largecode = ? and pdc_smallcode is not null order by pdc_smallcode asc";
+		try {
+			
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, small);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<String> smlist = new ArrayList<String>();
+		while(rs.next()) {
+			smlist.add(rs.getString("pdc_smallcode"));
+		}
+		con.close();
+		if(smlist.size()==0)
+			response.getWriter().print("0");
+		else response.getWriter().print(smlist); 
+		}catch(Exception e){
+			
+		}
+	}
+	
+	@GetMapping("admin/poverlapcheck")
+	public void overlapcheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		request.setCharacterEncoding("utf-8");
+		String k = request.getParameter("code");
+		Connection con = new config().dbc();
+		String sql = "select count(*) as c from product_detail where pdd_code = ?";
+		PreparedStatement ps = null;
+		
+		int j = 0;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, k);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				j =rs.getInt("c");			}
+			rs.close();
+		}catch(Exception e) {
+			
+		}finally {
+			try {
+				if(con!=null)con.close();
+				if(ps!=null)con.close();
+			}catch (Exception e) {
+			}
+		}
+
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().print(j);
 	
 	}
 }

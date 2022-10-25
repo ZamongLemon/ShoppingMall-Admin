@@ -2,7 +2,7 @@ package adminpage;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +28,7 @@ import adminpage.model.admin_login_model;
 import adminpage.model.admin_notice_model;
 
 
-
-@MultipartConfig(
-		
+@MultipartConfig(		
 		fileSizeThreshold = 1024 * 1024 *1,
 		maxFileSize= 1024*1024*2, 
 		maxRequestSize = 1024*1024*4 
@@ -40,6 +36,10 @@ import adminpage.model.admin_notice_model;
 @Controller
 public class admin_controller {
 
+	@RequestMapping("admin/addmaster")
+	public String add_master(){
+		return"adminpages/add_master";
+	}
 	@RequestMapping("admin/")
 	public String sdasdf() {
 
@@ -185,7 +185,8 @@ public class admin_controller {
 		request.setCharacterEncoding("utf-8");	
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter pwr = response.getWriter();
-		String savepath =  request.getServletContext().getRealPath("") + "admin\\upload\\";		
+		String savepath =  request.getServletContext().getRealPath("") + "admin\\upload\\";	
+		System.out.println("here?");
 		Part filepart = request.getPart("bn_file");	
 		String bn_file = null;
 		String p = filepart.getSubmittedFileName().intern();
@@ -197,7 +198,12 @@ public class admin_controller {
 		ldt.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSSS"));
 		String dt = new SimpleDateFormat("yyyyMMddHHmmssSSSS").format(new Date());
 		p = dt+"upd."+p;
-		String url = (savepath+p).replace("/puhu17/tomcat/webapps",".");
+		File d = new File(savepath);
+		if(!d.isDirectory()) {
+			d.mkdir();
+		}
+		String url = savepath+p;
+		System.out.println(url);
 		filepart.write(url);
 			bn_file= url;
 		}else {

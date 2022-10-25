@@ -53,7 +53,7 @@
  		aj = function(){			
  			$.ajax({
  				type: "GET", 
- 				url:"./smallajax.do",
+ 				url:"./smallcode",
  				data:{"key":sm.val()},
  				dataType:"text", 
  				success : function(result){
@@ -86,7 +86,7 @@
  			var wholecode = $("#category_code").val()+$("#product_code").val();
  			$.ajax({
  				type: "GET", 
- 				url:"./poverlapcheck.do",
+ 				url:"./poverlapcheck",
  				data:{"code":wholecode},
  				dataType:"text", 
  				success : function(result){
@@ -120,7 +120,7 @@
  		
  		f.enctype="multipart/form-data";
  		f.method="post";
- 		f.action="./product_insert.do";
+ 		f.action="./productinsert";
  		f.submit();
  	}
  	

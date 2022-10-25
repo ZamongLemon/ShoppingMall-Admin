@@ -43,7 +43,7 @@
 </body>
 <script>
 	function mvcategorylist(){
-		location.href="./categorylist.do?p=1";
+		location.href="./categorylist?p=1";
 	}
 	
 	var k = document.getElementById("lg_menu");
@@ -63,7 +63,7 @@
 	function catesubmit(){
 		f.method="post";
 		f.enctype="application/x-www-form-urlencoded";
-		f.action="./catewrite.do";
+		f.action="./catewrite";
 		f.submit();
 	}
 </script>

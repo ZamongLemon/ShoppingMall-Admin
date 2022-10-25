@@ -41,10 +41,10 @@
 </body>
 <script>
 	function mvcategorywrite(){
-		location.href="./writeproductcode.do";
+		location.href="./writeproductcode";
 	}
 	function mvproductlist(){
-		location.href="./productlist.do?p=1";
+		location.href="./productlist?p=1";
 	}
 	function modifycate(idx,isuse){
 		

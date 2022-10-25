@@ -13,7 +13,7 @@
     <link rel="icon" href="./img/logo.png" sizes="64x64">
     <link rel="icon" href="./img/logo.png" sizes="32x32">
     <link rel="icon" href="./img/logo.png" sizes="16x16">
-    <script src="./fns/fns.js?v=5"></script>
+    <script src="./fns/fns.js?v=4"></script>
 </head>
 <body>
     <header class="admin_title">

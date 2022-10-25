@@ -34,6 +34,18 @@ public class main_controller {
 		return "index";
 	}
 
+	@RequestMapping("member")
+	public String member() {
+		return "member";
+	}
+	@RequestMapping("member_login")
+	public String member_login() {
+		return "member_login";
+	}
+	@RequestMapping("ordercart")
+	public String ordercart() {
+		return "ordercart";
+	}
 	@RequestMapping("company")
 	public String sdfs() {
 		return "company";
