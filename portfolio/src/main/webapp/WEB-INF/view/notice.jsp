@@ -2,6 +2,7 @@
 <%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="./pagesources/session.jsp"%>
 <%  List<noticedao> lists = (List<noticedao>)request.getAttribute("noticelist");
 	int cnt = (int)request.getAttribute("cnt");
 	int cp = (int)request.getAttribute("page");

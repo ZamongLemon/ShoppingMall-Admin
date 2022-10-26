@@ -2,6 +2,7 @@
 <%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="./pagesources/session.jsp"%>
 <% 
 List<faqdao> ls = (List<faqdao>)request.getAttribute("faqlist"); 
 %>

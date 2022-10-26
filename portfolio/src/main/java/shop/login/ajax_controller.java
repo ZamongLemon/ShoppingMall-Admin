@@ -1,10 +1,13 @@
 package shop.login;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.json.simple.JSONArray;
@@ -20,6 +23,7 @@ import shop.dao.SigninDTO;
 import shop.dao.shoplistdao;
 import shop.model.shopmodel;
 import shop.service.SigninService;
+import shop.service.SigninServiceImpl;
 
 
 
@@ -47,18 +51,20 @@ public class ajax_controller {
 		}
 		return	j.toString();
 	}
-
-	@Autowired
-	SigninService signinService;
+	
 	@PostMapping("signin")
-	public SigninDTO signin(@RequestBody SigninDTO signinDTO) {
-		System.out.println(signinDTO.getEmail());
-		
-		
-		if(signinService.insert(signinDTO)) return signinDTO;
-		else return null;
-		
-		
+	public void signin(@RequestBody Map<String,String> signinMAP,HttpServletResponse resp) throws Exception {
+		String msg = null;
+		SigninDTO signinDTO = SigninDTO.builder().id(signinMAP.get("id")).password(signinMAP.get("password")).
+				name(signinMAP.get("name")).email(signinMAP.get("email")).phone(signinMAP.get("phone")).address(signinMAP.get("address")).build();
+		SigninService sign = new SigninServiceImpl();
+		if(sign.insert(signinDTO,dbsource)) {
+			msg="true";
+		}else {
+			msg = "<script>alert('가입에 실패했습니다.');history.back();</script>";
+		}
+		resp.getWriter().print(msg);		
 	}
+
 }
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ include file="./pagesources/session.jsp"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"  xmlns:fb="http://ogp.me/ns/fb#"  xmlns:og="http://ogp.me/ns#">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/fb/website#">
@@ -79,7 +80,6 @@
          "email" : f.mail1.value+"@"+f.mail2.value,
          "phone" : f.phone1.value+f.phone2.value+f.phone3.value,
          "address" : f.postcode.value+" "+f.addr1.value+" "+f.addr2.value+" "+f.addr3.value}
-		alert(JSON.stringify(obj));
 		 $.ajax({
 		    type: "POST",
 		    url : "signin",
@@ -87,11 +87,17 @@
 		    contentType : "application/json",
 		    dataType : "json",
 		    success : function(data){
-		        alert("suc")
-		    },error : function(){
-		    	alert("fail")
-		    }
+		        if(data==true){
+		        	alert("가입성공하였습니다.");
+		        	location.href="./member_login";
+		        }else{
+		        	console.log(data);
+		        }
+		    },error : function(data){
+		    	alert("fail");
+		    },timeout: 5000
 		});
+
 }
 
 

@@ -1,11 +1,14 @@
 package shop.login;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +21,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.inicis.std.util.SignatureUtil;
 
+import shop.dao.SessionDTO;
 import shop.dao.SigninDTO;
 import shop.dao.faqdao;
 import shop.dao.noticedao;
 import shop.model.faqmodel;
 import shop.model.noticemodel;
+import shop.service.SessionService;
+import shop.service.SessionServiceImpl;
+import shop.service.SigninService;
+import shop.service.SigninServiceImpl;
 
 @Controller
 public class main_controller {
@@ -117,7 +125,7 @@ public class main_controller {
 	public String toOrderCart(HttpServletRequest req) {
 		return "order";
 	}
-
+	
 		@RequestMapping(value="complet", method = RequestMethod.POST)
 		public String payment(Model m , String cname,String chp,HttpServletRequest req) throws Exception{
 			/*
@@ -149,6 +157,23 @@ public class main_controller {
 		String person_post = req.getParameter("person_post");
 		
 			return "complet";
+		}
+		
+		
+		@RequestMapping("trylgn")
+		public String trylgn(String id, String password,HttpServletResponse resp, HttpServletRequest req) throws Exception{
+			SessionService sessionService = new SessionServiceImpl();
+			SessionDTO sessionDTO = sessionService.getSessionData(id,password,dbsource);
+System.out.println(id);
+System.out.println(password);
+			if(sessionDTO !=null) {
+				HttpSession session = req.getSession();
+				session.setAttribute("account",session);
+				session.setMaxInactiveInterval(3600);
+				return "index";
+			}
+			resp.getWriter().print("<script>alert('로그인 정보를 확인하세요.');history.back();</script>");
+			return null;
 		}
 }
 
