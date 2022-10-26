@@ -25,7 +25,7 @@
 
 	l[0].innerHTML="<input type='checkbox' name='cbox' id='<%=listnotice.get(p).return_values(0)%>' >";
 	l[1].innerText="<%=p+1%>";
-	l[2].innerText="<%=listnotice.get(p).return_values(1)%>";
+	l[2].innerHTML="<a href='noticemodify(<%=listnotice.get(p).return_values(0)%>)'><div><%=listnotice.get(p).return_values(1)%></div></a>";
 	l[3].innerText="<%=listnotice.get(p).return_values(2)%>";
 	l[4].innerText="<%=listnotice.get(p).return_values(5).substring(0,19)%>";
 	l[5].innerText="<%=listnotice.get(p).return_values(7)%>";
@@ -46,7 +46,7 @@ for(int m = 0 ; m < n ; m++){%>
 	
 	l[0].innerHTML="<input type='checkbox' name='cbox' id='<%=listnormal.get(m).return_values(0)%>'>";
 	l[1].innerText="<%=whole - m - (pn - 1) * pv%>";
-	l[2].innerText="<%=listnormal.get(m).return_values(1)%>";
+	l[2].innerHTML="<a href='noticemodify(<%=listnormal.get(m).return_values(0)%>)'><div><%=listnormal.get(m).return_values(1)%></div></a>";
 	l[3].innerText="<%=listnormal.get(m).return_values(2)%>";
 	l[4].innerText="<%=listnormal.get(m).return_values(5).substring(0, 19)%>";
 	l[5].innerText="<%=listnormal.get(m).return_values(7)%>";
@@ -122,7 +122,9 @@ var loop = 0;
  		location.href= newstr;
 	});
 	
-	
+	noticemodify = (idx) =>{
+		location.href="notice_modify?idx="+idx;
+	}
 	 function get_page(loc){
 		 var h,p,ps;
 		 if(loc.indexOf("?")>0){			 

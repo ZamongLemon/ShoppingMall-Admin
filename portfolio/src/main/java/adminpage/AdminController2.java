@@ -15,10 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import adminpage.dao.category_dao;
+import adminpage.model.admin_notice_model;
 import adminpage.model.cate_write_m;
 import adminpage.model.fileupload;
 import adminpage.model.findlargecodes;
 import adminpage.model.product_insert_m;
+import shop.dao.noticedao;
 
 
 @MultipartConfig(
@@ -174,5 +176,18 @@ public class AdminController2 {
 		request.setAttribute("codes", codes);
 		
 		return "adminpages/admin_category_write";
+	}
+	
+	@RequestMapping("admin/noticemodify")
+	public String noticeModify(String idx,HttpServletResponse resp,HttpServletRequest req) throws Exception{
+		
+		if(idx==null) {
+			resp.sendRedirect("notice_write");
+		}
+		admin_notice_model admNoticeModel = new admin_notice_model();
+		noticedao noticedao =  admNoticeModel.getbyidx(idx);
+		req.setAttribute("noticeinfo", noticedao);
+		return "adminpages/admin_notice_modify";
+		
 	}
 }

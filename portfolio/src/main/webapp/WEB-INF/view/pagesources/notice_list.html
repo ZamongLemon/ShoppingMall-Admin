@@ -81,7 +81,7 @@ $(function() {
  for(int i =0  ; i < len;i ++){%>
 <ul class="tbody">
 <li class="mo_hide">
-<span class="mtitle" designElement="text">번호:</span><%=cnt-(cp*5+i)%></li>
+<span class="mtitle" designElement="text">번호:</span><%=cnt-((cp-1)*5+i)%></li>
 <li class="subject">
     <%=lists.get(i).getBn_title()%>
 </li>

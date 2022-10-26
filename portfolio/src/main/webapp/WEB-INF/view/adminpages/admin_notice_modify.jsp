@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@include file="./pagesource_admin/session.jsp"%>
+  <% noticedao ntc = (noticedao)request.getAttribute("noticeinfo");%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -38,4 +39,14 @@
 </footer>
 </body>
     <script src="./fns/noticefs.js?v=3"></script>
+    <script>
+    	<%if(ntc!=null){%>
+    	<%if(ntc.getBn_ontop()=="1"){%>
+    	frm.bn_ontop.checked=true;
+    	<%}%>
+    	frm.bn_title.value = "<%=ntc.getBn_title()%>";
+    	frm.bn_name.value = "<%=ntc.getBn_name()%>";	
+    	frm.bn_txt.innerText = "<%=ntc.getBn_txt()%> ";   	
+    	<%}%>
+    </script>
 </html>

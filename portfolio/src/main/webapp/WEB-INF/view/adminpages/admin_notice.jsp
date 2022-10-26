@@ -1,7 +1,9 @@
- 	<%@page import="java.util.List"%>
+ 	<%@page import="shop.dao.noticedao"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@include file="./pagesource_admin/session.jsp"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>

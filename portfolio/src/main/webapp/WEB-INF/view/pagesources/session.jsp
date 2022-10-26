@@ -1,6 +1,7 @@
 <%@page import="shop.dao.SessionDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
 <% 
-SessionDTO sessionDTO = (SessionDTO)session.getAttribute("account");%>
-<%if(sessionDTO!=null){%><%=sessionDTO.getName()%><%}else{%>none<%}%>
+SessionDTO sessionDTO = (SessionDTO)session.getAttribute("normalaccount");%>

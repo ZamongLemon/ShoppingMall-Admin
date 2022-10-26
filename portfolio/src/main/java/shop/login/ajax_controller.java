@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.json.simple.JSONArray;
@@ -64,6 +65,21 @@ public class ajax_controller {
 			msg = "<script>alert('가입에 실패했습니다.');history.back();</script>";
 		}
 		resp.getWriter().print(msg);		
+	}
+	
+	@PostMapping("logout")
+	public void aseq2ve(HttpServletRequest request, HttpServletResponse response) throws Exception  {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter pwr = response.getWriter();
+		String id = request.getParameter("lgout").intern();
+		System.out.println(id);
+		if(id=="true") {
+			HttpSession session = request.getSession();
+			session.invalidate();
+		}
+		pwr.print(id);
+	
 	}
 
 }

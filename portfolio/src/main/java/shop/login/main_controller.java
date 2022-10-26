@@ -38,7 +38,7 @@ public class main_controller {
 	@Autowired
 	BasicDataSource dbsource;
 
-	@RequestMapping("")
+	@RequestMapping({"","index"})
 	public String sfsfdf(Model m) {
 
 		m.addAttribute("app", "app");
@@ -96,13 +96,11 @@ public class main_controller {
 		String type = req.getParameter("t");
 		String word = req.getParameter("w");
 
-		if (page == null || page == "")
-			page = "0";
+		if (page == null || page == "")	page = "1";
 		noticemodel n = new noticemodel(dbsource);
 		List<noticedao> lists = new ArrayList<>();
-		if (type == null || type == "")
-			type = "0";
-
+		if (type == null || type == "")	type = "0";
+		if (word ==null) word = "";
 		lists = n.returnnotices(Integer.valueOf(page), 5, Integer.valueOf(type), word);
 		req.setAttribute("cnt", n.countbn(Integer.valueOf(page), 5, Integer.valueOf(type), word));
 		req.setAttribute("type", type);
@@ -164,13 +162,12 @@ public class main_controller {
 		public String trylgn(String id, String password,HttpServletResponse resp, HttpServletRequest req) throws Exception{
 			SessionService sessionService = new SessionServiceImpl();
 			SessionDTO sessionDTO = sessionService.getSessionData(id,password,dbsource);
-System.out.println(id);
-System.out.println(password);
+
 			if(sessionDTO !=null) {
 				HttpSession session = req.getSession();
-				session.setAttribute("account",session);
+				session.setAttribute("normalaccount",sessionDTO);
 				session.setMaxInactiveInterval(3600);
-				return "index";
+				resp.sendRedirect("index");
 			}
 			resp.getWriter().print("<script>alert('로그인 정보를 확인하세요.');history.back();</script>");
 			return null;

@@ -28,10 +28,17 @@
 
             <!-- 상단 유틸메뉴 -->
             <ul class="util_wrap_menu2">
+            <%if(sessionDTO!=null){%>
+            	<li>
+            	<%=sessionDTO.getName()%>
+            	</li>
+            	<li><a href="javascript:logout()" designElement="text" textIndex="4" target="_self">로그아웃</a></li>
+            <%}else{%>
                 <li><a href="member_login" designElement="text" textIndex="4" target="_self">로그인</a></li>
 				<li>
 					<a href="member" designElement="text" textIndex="5" target="_self">회원가입</a>
 				</li>
+            <%}%>
                 <!-- <li><a href="/service/cs" designElement="text">CS CENTER</a></li> -->
                 <li class="respCartArea"><a href="order"><em designElement="text" textIndex="6">CART</em></a></li>
 				<li class="respMypage"><a href="#" designElement="text" textIndex="7"><em>MY SHOPPING</em></a></li>
@@ -72,6 +79,27 @@
 					});
                    
 				});
+				
+				logout =  ()=>{
+					$.ajax({
+						url:"logout",
+						cache : false,
+						type : "POST",
+						data :{"lgout":"true"},
+						dataType:"text",
+						success:function($data){ 
+							console.log($data);
+							if($data=="true"){
+								location.reload();
+							}else{
+								alert("사용불가");
+							}
+						},
+						error:function(){
+							console.log("fail");
+						}
+					});
+				}
 			</script>
 			<!-- 슬라이드 배너 영역 (light_style_1_2) :: END -->
 		</div>

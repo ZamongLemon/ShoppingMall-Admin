@@ -23,7 +23,6 @@ public class noticemodel {
 		String sql = null;
 		sql= "select * from board_notice";		
 		sql+= stringmaker(page, objectcnt, type, word,false);
-
 		lists = jdbct.query(sql, new RowMapper<noticedao>() {
 			@Override
 			public noticedao mapRow(ResultSet rs, int rowNum) throws SQLException {
