@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
 		this.jdbct = new JdbcTemplate(dbsource);
 	}
 	@Override
-	public List<ProductDTO> getAllProduct() {
+	public List<ProductDTO> getAllProduct(String code) {
 		List<ProductDTO> lists = new ArrayList<>();
 		String sql = "select * from product_detail";
 		lists = jdbct.query(sql, new RowMapper<ProductDTO>() {
@@ -32,7 +32,19 @@ public class ProductServiceImpl implements ProductService {
 				
 			return f;
 			}});
-
-		return lists;
+		
+		return filterByLargeCode(lists,code);		
+	}
+	
+	public List<ProductDTO> filterByLargeCode(List<ProductDTO> list, String code){
+		List<ProductDTO> list2 = new ArrayList<>();
+		for(int i = 0 ; i < list.size() ;i++) {
+			if(list.get(i).getPdd_code().substring(0,4).intern()==code) {
+				list2.add(list.get(i));
+			}
+		}
+		
+		return list2;
+		
 	}
 }

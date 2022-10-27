@@ -43,7 +43,9 @@ public class main_controller {
 	@RequestMapping({"","index"})
 	public String sfsfdf(Model m) {
 		ProductService productService = new ProductServiceImpl(dbsource);
-		m.addAttribute("product", productService.getAllProduct());
+		m.addAttribute("draw", productService.getAllProduct("0101"));
+		m.addAttribute("sofa", productService.getAllProduct("0200"));
+		m.addAttribute("bed", productService.getAllProduct("0322"));
 		
 		
 		

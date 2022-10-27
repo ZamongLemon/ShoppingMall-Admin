@@ -11,7 +11,7 @@ public class config {
 	
 		try {		
 			String dbdrive = "com.mysql.jdbc.Driver";
-			String dburl = "jdbc:mysql://umj7-009.cafe24.com:3306/puhu17";
+			String dburl = "jdbc:mysql://localhost:3306/puhu17";
 			String dbuser = "puhu17";
 			String dbpass = "p1o2i3u4!";
 			Class.forName(dbdrive);//JDBC 클래스 로드명 
