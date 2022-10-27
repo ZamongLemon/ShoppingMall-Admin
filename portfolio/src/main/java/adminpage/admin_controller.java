@@ -203,10 +203,8 @@ public class admin_controller {
 			d.mkdir();
 		}
 		String url = savepath+p;
-		System.out.println(url);
 		filepart.write(url);
-			bn_file= url;
-		}else {
+			bn_file= url.replace("/puhu17/tomcat/webapps/", "http://puhu17.cafe24.com/");		}else {
 			bn_file="default";
 		}
 		String ont = request.getParameter(params[3]);
@@ -245,10 +243,10 @@ public class admin_controller {
 		File f = new File(url);
 		if(!f.isDirectory()) f.mkdir();
 		if(name!="") {
-			url = (url+"\\"+name).replace("/puhu17/tomcat/webapps",".");
+			url = (url+"\\"+name);
 			pt.write(url);
-			cp_imgurl= url;
-		}else {
+			cp_imgurl= url.replace("/puhu17/tomcat/webapps/", "http://puhu17.cafe24.com/");
+			}else {
 			cp_imgurl="default";
 		}
 		String[] params = {"cp_name","cp_type1","cp_start","cp_end","cp_type2","cp_discount","cp_minimum"};

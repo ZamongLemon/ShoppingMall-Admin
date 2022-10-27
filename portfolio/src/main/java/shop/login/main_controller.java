@@ -27,6 +27,8 @@ import shop.dao.faqdao;
 import shop.dao.noticedao;
 import shop.model.faqmodel;
 import shop.model.noticemodel;
+import shop.service.ProductService;
+import shop.service.ProductServiceImpl;
 import shop.service.SessionService;
 import shop.service.SessionServiceImpl;
 import shop.service.SigninService;
@@ -40,8 +42,12 @@ public class main_controller {
 
 	@RequestMapping({"","index"})
 	public String sfsfdf(Model m) {
-
-		m.addAttribute("app", "app");
+		ProductService productService = new ProductServiceImpl(dbsource);
+		m.addAttribute("product", productService.getAllProduct());
+		
+		
+		
+		
 		return "index";
 	}
 
@@ -77,6 +83,19 @@ public class main_controller {
 		return "privacy";
 	}
 
+	@RequestMapping("noticeview")
+	public String notice_view(Model m, String idx, HttpServletResponse resp) throws Exception{
+		
+		if(idx!=null) {			
+		noticemodel ntcm = new noticemodel(dbsource);
+		noticedao ntd = ntcm.getbyidx(idx);
+		m.addAttribute("notice",ntd);
+		}else {
+			return "redirect:notice";
+		}
+		
+		return"noticeview";
+	}
 	@RequestMapping("cs")
 	public String ssdsa(HttpServletRequest req) {
 		String c = req.getParameter("c");

@@ -32,7 +32,7 @@ public class fileupload{
 			String url = (path+p);
 			part.write(url);
 			
-			return url;
+			return url.replace("/puhu17/tomcat/webapps/", "http://puhu17.cafe24.com/");
 		}
 		
 	}

@@ -52,5 +52,33 @@ public class admin_notice_model {
 			
 			return ntc;
 		}
+		
+		public boolean modify_notice (ArrayList<String> vals) {
+			boolean res = false;
+			Connection con = null;		
+			
+			try {
+				config c = new config();
+				con= c.dbc();
+				String sql = "update board_notice set bn_title=? , bn_name=? ,bn_file = ? , bn_txt=?,bn_ontop=?  where bn_idx = ?";
+				PreparedStatement ps = con.prepareStatement(sql);
+				int j = vals.size();
+				for(int i = 0 ; i < j ; i++) {
+					ps.setString(i+1, vals.get(i));
+				}
+				
+				int n = ps.executeUpdate();
+				
+				res = (n>0)? true:false;
+				
+				con.close();
+				
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}finally {
+			}
+			
+			return res;
+		}
 	}
 	

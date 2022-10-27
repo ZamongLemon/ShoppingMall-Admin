@@ -25,7 +25,8 @@ function submnoticemodify(){
 		
 	frm.method="post";
 	frm.enctype="multipart/form-data";
-	frm.action="./modifynotice";
+	frm.action="./noticeupdate";
 	frm.submit();
 	}
 }
+

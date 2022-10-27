@@ -7,9 +7,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import shop.dao.SessionDTO;
 import shop.dao.noticedao;
 
 public class noticemodel {
@@ -74,6 +76,23 @@ public class noticemodel {
 		" order by bn_idx desc limit "+start+","+objectcnt		
 		: "order by bn_idx desc ";
 		return sql;
+	}
+	public noticedao getbyidx(String idx) {
+
+		List<noticedao> results = this.jdbct.query(
+				"select * from board_notice where bn_idx= ?",
+				new RowMapper<noticedao>() {
+					@Override
+					public noticedao mapRow(ResultSet rs, int rowNum) throws SQLException {
+						noticedao noticeDAO
+						= noticedao.builder().bn_title(rs.getString("bn_title")).bn_name(rs.getString("bn_name")).
+						bn_txt(rs.getString("bn_txt")).bn_file(rs.getString("bn_file")).bn_writed(rs.getString("bn_writed"))
+						.build();
+						
+						return noticeDAO;
+					}
+				}, idx);
+			return results.isEmpty() ? null : results.get(0);
 	}
 	
 }

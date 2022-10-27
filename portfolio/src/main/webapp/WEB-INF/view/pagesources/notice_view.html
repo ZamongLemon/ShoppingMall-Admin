@@ -1,0 +1,104 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<meta charset="utf-8">
+<div id="boardlayout" >
+    <div class="subpage_wrap">
+        <div id="subpageLNB" class="subpage_lnb">
+<div id="boardLnbCommon">
+    <h2 class="title1"><a href="cs" designElement="text">CS CENTER</a></h3>
+    <ul class="lnb_sub">
+        <li ><a href="notice" designElement="text">공지사항</a></li>
+        <li ><a href="cs" designElement="text">자주 묻는 질문</a></li>
+        <li ><a href="#" designElement="text">상품문의</a></li>
+        <li ><a href="#" designElement="text"><b>상품후기</b></a></li>
+    </ul>
+</div>
+<script>
+$(function() {
+    // 고객센터 LNB 텍스트 수정기능으로 삭제시, 클라이언트단에서 삭제 처리
+    $('#boardLnbCommon a').each(function(e) {
+        if ( $(this).text() == '' ) {
+            $(this).parent('li, h2').remove();
+        }
+    });
+});
+</script>
+        </div>
+    <div class="subpage_container">
+        <!-- 전체 메뉴 -->
+        <a id="subAllButton" class="btn_sub_all" href="javascript:void(0)"><span designElement="text" textIndex="1"  textTemplatePath="cmVzcG9uc2l2ZV93cmlzdHdhdGNoX2NsYXNzaWNfZ2wvYm9hcmQvaW5kZXguaHRtbA==" >MENU</span></a>
+
+        <!-- 타이틀 ( 관리자에서 설정한 "게시판명"이 노출됩니다. ) -->
+        <div class="title_container">
+            <h2>공지사항</h2>
+        </div>
+<html>
+	<head>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1 name="bn_title">${notice.getBn_title()}</h1>
+							<div>
+							<p name="bn_name" >${notice.getBn_name()}</p>
+							<p name="bn_writed" >${notice.getBn_writed().substring(0,10)}</p>
+							</div>
+<!-- 							<span class="image main"><img src="assets/images/pic13.jpg" alt="" /></span> -->
+							<p name="bn_txt">${notice.getBn_txt()}</p>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
+<!-- <ul class="bbs_top_wrap"> -->
+<!--     <li>공지사항 제목</li> -->
+<!--     <li> -->
+<!--        <p></p> -->
+<!--     </li> -->
+<!-- </ul> -->
+<!-- <ul> -->
+<!--     <li>글쓴이</li> -->
+<!--     <li> -->
+<!--         <p></p>        -->
+<!--     </li> -->
+<!-- </ul> -->
+<!-- <ul> -->
+<!--     <li>첨부파일</li> -->
+<!--     <li> -->
+<!--     </li> -->
+<!-- </ul> -->
+<!-- <ul class="ul_height"> -->
+<!--     <li>공지내용</li> -->
+<!--     <li> -->
+<!--         <p></p> -->
+<!--     </li> -->
+<!-- </ul> -->
+
+
+</div>
+<div id="pagingDisplay" class="paging_navigation">
+<p>
+</p>
+</div>
+     </div>
+    </div>
+
+</div>
+</body>
+</html>

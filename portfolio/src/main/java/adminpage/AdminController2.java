@@ -1,8 +1,15 @@
 package adminpage;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import adminpage.dao.category_dao;
@@ -188,6 +196,57 @@ public class AdminController2 {
 		noticedao noticedao =  admNoticeModel.getbyidx(idx);
 		req.setAttribute("noticeinfo", noticedao);
 		return "adminpages/admin_notice_modify";
+		
+	}
+	@RequestMapping("admin/noticeupdate")
+	public void noticeUpdate(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		
+		request.setCharacterEncoding("utf-8");	
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter pwr = response.getWriter();
+		String savepath =  request.getServletContext().getRealPath("") + "admin\\upload\\";	
+		System.out.println("here?");
+		Part filepart = request.getPart("bn_file");	
+		String bn_file = null;
+		String p = filepart.getSubmittedFileName().intern();
+		String[] params = {"bn_title","bn_name","bn_txt","bn_ontop"};
+		ArrayList<String> vals = new ArrayList<>(); 
+		if(p!="") {			
+		p = p.substring(p.lastIndexOf(".")+1);
+		LocalDateTime ldt = LocalDateTime.now();
+		ldt.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSSS"));
+		String dt = new SimpleDateFormat("yyyyMMddHHmmssSSSS").format(new Date());
+		p = dt+"upd."+p;
+		File d = new File(savepath);
+		if(!d.isDirectory()) {
+			d.mkdir();
+		}
+		String url = savepath+p;
+
+		filepart.write(url);
+			bn_file= url.replace("/puhu17/tomcat/webapps/", "http://puhu17.cafe24.com/");
+		}else {
+			bn_file="default";
+		}
+		String ont = request.getParameter(params[3]);
+		int j = params.length;
+		for(int i = 0 ; i < j-1; i++) {
+			vals.add(request.getParameter(params[i]));
+		}
+		if(ont==null) vals.add("0"); else vals.add(ont);
+		vals.add(2,bn_file);
+		vals.add(request.getParameter("bn_idx"));
+		System.out.println(vals);
+		admin_notice_model nm = new admin_notice_model();
+		try {
+			if(nm.modify_notice(vals)) {				
+				response.sendRedirect("./notice");
+			}else {response.getWriter().print("<script>alert('수정에 실패하였습니다.');history.back()</script>");}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			response.getWriter().print("<script>alert('수정에 실패하였습니다.');history.back()</script>");
+		}
 		
 	}
 }

@@ -83,7 +83,9 @@ $(function() {
 <li class="mo_hide">
 <span class="mtitle" designElement="text">번호:</span><%=cnt-((cp-1)*5+i)%></li>
 <li class="subject">
+   <a href="noticeview?idx=<%=lists.get(i).getBn_idx()%>">
     <%=lists.get(i).getBn_title()%>
+   </a>
 </li>
 <li class="subject" style="text-align: center;">
     <%=lists.get(i).getBn_name()%>

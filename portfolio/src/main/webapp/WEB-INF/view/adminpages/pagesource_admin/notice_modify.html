@@ -5,6 +5,7 @@
 %>
 
 <meta charset="UTF-8">
+<input type = "hidden" name = "bn_idx" value="<%=ntc.getBn_idx()%>">
 <p>공지사항 등록페이지</p>
 <div class="write_view">
 <ul>
@@ -40,5 +41,5 @@
 </div>
 <div class="board_btn">
     <input type="button" class="border_del" value="공지목록"onclick="location.href='./notice'">
-    <input type="button" class="border_add" value="공지등록" onclick="submnoticemodify()">
+    <input type="button" class="border_add" value="공지수정" onclick="submnoticemodify()">
 </div>

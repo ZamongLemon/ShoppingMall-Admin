@@ -30,7 +30,7 @@
 <main class="maincss">
 <section style="height: auto;">
 <form name="frm" id="frm" >
-<%@include file="./pagesource_admin/notice_write.html" %>
+<%@include file="./pagesource_admin/notice_modify.html" %>
 </form>
 </section>
 </main>
@@ -38,7 +38,7 @@
 <%@include file="./pagesource_admin/admin_footer.html"%>
 </footer>
 </body>
-    <script src="./fns/noticefs.js?v=3"></script>
+    <script src="./fns/noticefs.js?v=4"></script>
     <script>
     	<%if(ntc!=null){%>
     	<%if(ntc.getBn_ontop()=="1"){%>
