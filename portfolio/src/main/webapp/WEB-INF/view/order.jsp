@@ -62,6 +62,7 @@
 <script src="./js/slick.min.js"></script>
 <script src="./js/jquery.event.swipe.js"></script>
 <script src="./js/swiper.js"></script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <body>
 	<style>
 #layout_body {
@@ -112,4 +113,8 @@
 
 	</div>
 </body>
+<script>
+
+
+</script>
 </html>

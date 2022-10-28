@@ -125,20 +125,14 @@
                 <div id="order_info_input" class="">
                     <div class="order_info_input">
                         <ul class="list_01 v2">
-                            <li><input type="text" name="" value="" class="pilsu" style="width:170px;" title="주문자 이름" placeholder="주문자 이름" required />
+                            <li><input type="text" name="buyerName" value="" class="pilsu" style="width:170px;" title="주문자 이름" placeholder="주문자 이름" required />
                             <!--<button type="button" class="btn_resp size_b" onclick="copy_delivery_info();">배송지 정보와 동일</button></li>-->
                             <li>
-                                <input type="tel" name="" value="" class="pilsu" style="width:64px;" title="휴대폰" placeholder="휴대폰" required /> -
-                                <input type="tel" name="" value="" class="pilsu size_phone" placeholder="휴대폰" required /> -
-                                <input type="tel" name="" value="" class="pilsu size_phone" placeholder="휴대폰" required />
+                                <input type="tel" name="buyerPhone0" value="" class="pilsu" style="width:64px;" title="휴대폰" placeholder="휴대폰" required /> -
+                                <input type="tel" name="buyerPhone1" value="" class="pilsu size_phone" placeholder="휴대폰" required /> -
+                                <input type="tel" name="buyerPhone2" value="" class="pilsu size_phone" placeholder="휴대폰" required />
                             </li>
-                            <li>
-                                <input type="tel" name="" value="" style="width:64px;" title="연락처2" placeholder="전화" /> -
-                                <input type="tel" name="" value="" class="size_phone" placeholder="전화" /> -
-                                <input type="tel" name="" value="" class="size_phone" placeholder="전화" />
-                                <span class="desc">(선택)</span>
-                            </li>
-                            <li><input type="email" name="" value="" class="pilsu size_email_full" title="이메일" placeholder="주문자 이메일" required /></li>
+                            <li><input type="email" name="buyerEmail" value="" class="pilsu size_email_full" title="이메일" placeholder="주문자 이메일" required /></li>
                         </ul>
                     </div>
                 </div>
@@ -153,37 +147,32 @@
                         <ul class="list_01 v2">
                             <!-- 받는분 -->
                             <li>
-                                <input type="text" name="recipient_input_user_name" class="pilsu" style="width:170px;" value="" title="받는분" required />
-                                <button type="button" class="btn_resp size_b color5">주문자 정보와 동일</button>
+                                <input type="text" id="receivername" name="receiverName" class="pilsu" style="width:170px;" value="" placeholder="받는분" title="받는분" required />
+                                <button type="button" class="btn_resp size_b color5" onclick="sameAs()" >주문자 정보와 동일</button>
                             </li>
                             <!-- 국내 -->
                             <li class="domestic goods_delivery_info ">
-                                <input type="hiddeqn" name="recipient_input_address_type" value="" class="hide" title="우편번호" />
-                                <input type="text" name="recipient_input_new_zipcode" value="" title="우편번호" class="pilsu size_zip_all" readonly required />
-                                <button type="button" class="btn_resp size_b color4" onclick="openDialogZipcode_resp('morder');">검색</button>
+                                <input type="hidden" name="recipient_input_address_type" value="" class="hide" placeholder="우편번호 "title="우편번호" />
+                                <input type="text" id = "receiverpostcode" name="receiverpostcode" value="" title="우편번호" class="pilsu size_zip_all postcodify_postcode5" readonly required />
+                                <button type="button"  id="postcodify_search_button" class="btn_resp size_b color4" onclick="openDialogZipcode_resp('morder');">검색</button>
                             </li>
                             <li class="domestic goods_delivery_info ">
-                                <input type="text" name="recipient_input_address_street" value="" class="pilsu size_address hide" title="도로명 주소" readonly />
-                                <input type="text" name="recipient_input_address" value="" class="pilsu size_address" title="주소" readonly />
+                                <input type="text" name="receivehidden" value="" class="pilsu size_address hide"  placeholder="도로명 주소" title="도로명 주소" readonly />
+                                <input type="text" id= "receiverStreetAddress"name="receiverStreetAddress" value="" class="pilsu size_address postcodify_address" title="주소" readonly />
                             </li>
                             <li class="domestic goods_delivery_info ">
-                                <input type="text" name="recipient_input_address_detail" value="" class="pilsu size_address" title="나머지주소" required />
+                                <input type="text" id="receiverAddressDetail" name="receiverAddressDetail" value="" class="pilsu size_address postcodify_details"placeholder="상세주소" title="나머지주소" required />
                             </li>
                             <!-- 연락처 -->
                             <li>
-                                <input type="tel" name="recipient_input_cellphone[]" value="" class="pilsu" style="width:64px;" onkeydown="onlyNumber(this)" title="휴대폰" valid="받는분 핸드폰" required /> -
-                                <input type="tel" name="recipient_input_cellphone[]" value="" class="pilsu size_phone" onkeydown="onlyNumber(this)" valid="받는분 핸드폰" required /> -
-                                <input type="tel" name="recipient_input_cellphone[]" value="" class="pilsu size_phone" onkeydown="onlyNumber(this)" valid="받는분 핸드폰" required />
+                                <input type="tel" id="receiverPhone0" name="receiverPhone0" placeholder="연락처" value="" class="pilsu" style="width:64px;" onkeydown="onlyNumber(this)" title="휴대폰" valid="받는분 핸드폰" required /> -
+                                <input type="tel" id="receiverPhone1" name="receiverPhone1" placeholder="연락처" value="" class="pilsu size_phone" onkeydown="onlyNumber(this)" valid="받는분 핸드폰" required /> -
+                                <input type="tel" id="receiverPhone2" name="receiverPhone2" placeholder="연락처" value="" class="pilsu size_phone" onkeydown="onlyNumber(this)" valid="받는분 핸드폰" required />
                             </li>
-                            <li>
-                                <input type="tel" name="recipient_input_phone[]" value="" style="width:64px;" onkeydown="onlyNumber(this)" title="연락처2" valid="받는분 전화" /> -
-                                <input type="tel" name="recipient_input_phone[]" value="" class="size_phone" onkeydown="onlyNumber(this)" valid="받는분 전화" /> -
-                                <input type="tel" name="recipient_input_phone[]" value="" class="size_phone" onkeydown="onlyNumber(this)" valid="받는분 전화" />
-                                <span class="desc">(선택)</span>
-                            </li>
+
                             <!-- 이메일 -->
-                            <li class="hide">
-                                <input type="email" name="recipient_email" value="" class="size_email_full" title="이메일" />
+                            <li >
+                                <input type="email" name="receiverEmail" value="" class="size_email_full" placeholder="이메일" title="이메일" />
                             </li> 
                         </ul>
                     </div>
@@ -257,14 +246,11 @@
                             
                             </ul>
     
-                            <ul class="payment_method_select hide" id="payment_type_zero">
-                                <li><strong style="color:#4b4b4b;">전액할인</strong></li>
-                            </ul>
-
+      
                             <!--무통장입금 - 상세 -->
                             <ul class="list_01 v2 bank">
                                 <li>
-                                    <input type="text" name="depositor" value="" title="입금자명" />
+                                    <input type="text" name="depositor" value="" placeholder="입금자명" title="입금자명" />
                                 </li>
                                 <li>
                                     <select name="bank">
@@ -282,67 +268,13 @@
                                     <label class='tax_voucherchk'><input type="radio" name="typereceipt" id="typereceipt1" value="1"> 세금계산서 </label>
                                 </li>
                             </ul>
-                            <div id="typereceipttablelay" class="hide">
-    
-                                <!-- ~~~~~~~ 현금영수증 신청 부분 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                                <ul id="cash_container" class="typereceiptlay list_01 v2 Mt5 hide">
-                                    <li class="labelgroup_design">
-                                        <label for="cuse0" class="on"><input type="radio" name="cuse" id="cuse0" value="0" checked="checked"> 개인 소득공제</label>
-                                        <label for="cuse1"><input type="radio" name="cuse" id="cuse1" value="1"> 사업자 지출증빙</label>
-                                    </li>
-                                    <li id="personallay">
-                                      <input type="tel" name="creceipt_number[0]" class="size_email_full" maxlength="13" title="휴대폰번호( '-' 없이 입력 )" />
-                                    </li>
-                                    <li id="businesslay" class="hide">
-                                      <input type="tel" name="creceipt_number[1]" class="size_email_full" maxlength="10" title="사업자번호( '-' 없이 입력 )" />
-                                    </li>
-                                    <li id="personallay">
-                                      <input type="email" name="sales_email" class="size_email_full" title="이메일주소" />
-                                    </li>
-                                    <li id="duplicate_message" class="desc">
-                                        ※ 결제창에서 다시 현금영수증을 신청하지 마세요. 중복발행 됩니다.
-                                    </li>
-                                </ul>
-                                <!-- ~~~~~~~ 세금계산서 신청 부분 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                                <ul id="tax_container" class="typereceiptlay list_01 v2 Mt10 hide">
-                                    <li>
-                                        <input type="text" name="co_name" id="co_name" value="" title="상호명" />
-                                    </li>
-                                    <li>
-                                        <input type="tel" name="busi_no" id="busi_no" value="" title="사업자번호" /> <span class="desc">ex) 123-12-12345</span>
-                                    </li>
-                                    <li>
-                                        <input type="text" name="co_ceo" id="co_ceo" value="" title="대표자명" />
-                                    </li>
-                                    <li>
-                                        <input type="text" name="co_status" id="co_status" value="" title="업태" style="width:130px;" /> /
-                                        <input type="text" name="co_type" id="co_type" value="" title="업종" style="width:130px;" />
-                                    </li>
-                                    <li>
-                                        <input type="text" name="co_new_zipcode" class="size_zip_all" value="" title="우편번호" readonly />
-                                        <button type="button" class="btn_resp size_b color4" onclick="openDialogZipcode_resp('co_');">검색</button>
-                                        <input type="hidden" name="co_address_type" id="co_address_type" value="" title="주소" />
-                                        <input type="text" name="co_address" id="co_address" value="" class="size_address Mt5 " title="주소" readonly />
-                                        <input type="text" name="co_address_street" id="co_address_street" value="" class="size_address Mt5 hide" title="주소" readonly />
-                                        <input type="text" name="co_address_detail" id="co_address_detail" value="" class="size_address Mt5" title="상세주소" />
-                                    </li>
-                                    <li>
-                                        <input type="text" name="person" id="person" value="" title="담당자명" />
-                                    </li>
-                                    <li>
-                                        <input type="email" name="email" id="email" value="" title="이메일주소" class="size_email_full" />
-                                    </li>
-                                    <li>
-                                        <input type="tel" name="phone" id="phone" value="" title="연락처 " /> <span class="desc">숫자만 입력</span>
-                                    </li>
-                                </ul>
-                            </div>
+
                             <!-- ++++++++++++++++++++ 결제 수단 :: END ++++++++++++++++++++ -->
     
                             <!-- ++++++++++++++++++++ 약관 동의 :: START ++++++++++++++++++++ -->
                             <h3 class="title3">약관 동의</h3>
                             <div class="mem_agree_area">
-                                <label class="pilsu_agree_all2"><input type="checkbox" name="all_agree" id="all_agree" value="Y" /> 전체동의</label>
+                                <label class="pilsu_agree_all2"><input type="checkbox" name="all_agree" id="all_agree" onclick="checkAll()"value="Y" /> 전체동의</label>
                                 <ul id="odAgreeList" class="agree_list2">
                                     <li>
                                         <a class="agree_view">보기</a>
@@ -363,10 +295,10 @@
                                 </ul>
                             </div>
   
-    
+  
                             <!-- 결제 버튼 -->
                             <div class="pay_layer btn_area_c" id="pay_layer1">
-                                <input type="button" value="결제하기" name="button_pay" id="pay" class="btn_resp size_extra color2 Wmax" />
+                                <input type="button" onclick="submOrder()"value="결제하기" name="button_pay" id="pay" class="btn_resp size_extra color2 Wmax" />
                                 <span class="hide"><input type="button" value="장바구니로" class="btn_resp size_extra" onclick="document.location.href='cart';" /></span>
                             </div>
                         </div>
@@ -376,27 +308,7 @@
         </div>
     
     </div>
-
-    <!-- 쿠폰 목록 레이어 -->
-    <div id="couponDeatilLayer" class="resp_layer_pop">
-        <h4 class="title">보유 쿠폰</h4>
-        <div class="y_scroll_auto2">
-            <div class="layer_pop_contents v5">
-                <div id="coupon_ordersheet_lay">
-                    <div id="coupon_ordersheet_select"></div>
-                </div>
-                <div id="coupon_goods_lay"></div>
-                <div id="coupon_shipping_lay">
-                    <div id="coupon_shipping_select"></div>
-                </div>
-            </div>
-        </div>
-        <div class="layer_bottom_btn_area2">
-            <button type="button" id="coupon_order" class="btn_resp size_c color2 Wmax">적용</button>
-        </div>
-        <a href="" class="btn_resp btn_view_coupons" target="_blank">보유 쿠폰 전체 보기</a>
-        <a href="" class="btn_pop_close"></a>
-    </div>
+ 
     <!-- //본문내용 끝 -->
     </form>
     <script type="text/javascript">
@@ -407,4 +319,31 @@
                 }
             });
         });
+    	var m = document.querySelector("#all_agree");
+    	
+    	const sameAs = () =>{
+    		orderFrm.receiverName.value=orderFrm.buyerName.value;
+    		orderFrm.receiverEmail.value=orderFrm.buyerEmail.value;
+    		orderFrm.receiverPhone0.value=orderFrm.buyerPhone0.value;
+    		orderFrm.receiverPhone1.value=orderFrm.buyerPhone1.value;
+    		orderFrm.receiverPhone2.value=orderFrm.buyerPhone2.value;
+    	}
+    	
+    	const checkAll  = () => {
+    		var a = document.querySelectorAll(".agree_chk");
+    		a.forEach((small) =>{
+    			small.checked = m.checked;
+    		});
+    	}
+    	
+    	$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
+    	const submOrder = ()=>{
+    		orderFrm.enctype="application/json";
+    		orderFrm.action="complet";
+    		orderFrm.method="post";
+    		orderFrm.submit();
+    	}
+    	 
+    	 
+
     </script>

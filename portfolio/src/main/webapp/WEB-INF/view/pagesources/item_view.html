@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="detail_title_area">
-	<h3 class="name">상품명</h3>
+	<h3 class="name">${productDTO.getPdd_name()}</h3>
 	<p class="summary">
-		상품상세설명
+		${productDTO.getPdd_explain()}
 		<span class="detail_icons">
 		</span>
 	</p>
-	<p class="seq_num Hide">상품번호 : 767</p>
+	<p class="seq_num Hide">상품번호 : ${productDTO.getPdd_code()}</p>
 </div>
 
 <div id="goods_view">
@@ -18,7 +18,8 @@
 		<div id="goods_thumbs">
 			<div class="slides_container hide" style="position:relative;">
 					<div class="viewImgWrap">
-							<img src="http://puhu17.cafe24.com/product/1/Chattam&Wells%20King/file1.gif" title="" alt="상품이미지"/>
+							<img src="${productDTO.getPdd_imgurl()}" title="" alt="상품이미지"/>
+							
 					</div>
 			</div>
 
@@ -31,6 +32,7 @@
 
 					var gap = ($("#goods_thumbs .pagination").scrollLeft()+currentLeft+(currentWidth/2))-(paginationWidth/2);
 
+					
 					$("#goods_thumbs .pagination").stop(true,true).animate({'scrollLeft':gap});
 				};
 				$("#goods_thumbs .slides_container>.viewImgWrap:gt(0)").hide();
@@ -69,14 +71,14 @@
 				<li class="deatil_price_area">
 						<div class="deatil_sale_rate">
 							<p class="inner">
-								<span class="num">20</span>%
+								<span class="num">${productDTO.getPdd_saleper()}</span>%
 							</p>
 						</div>
 						<p class="org_price">
-							<span class="dst_th_size"><s><span class="num">8,910,000</span></s>&#x20a9;</span>
+							<span class="dst_th_size"><s><span class="num">${productDTO.getPdd_nprice()}</span></s>&#x20a9;</span>
 						</p>
 						<p class="sale_price">
-								<span class="num">7,128,000</span><span class='price_won'>&#x20a9;</span>
+								<span class="num">${productDTO.getPdd_sprice()}</span><span class='price_won'>&#x20a9;</span>
 						</p>
 
 					<!--<button type="button" class="btn_open_small btn_resp B" onclick="detail_contents_toggle(this,'priceDetail')"><span designElement="text">할인금액</span></button>//-->
@@ -271,14 +273,18 @@
 		<tr class="optionTr">
 			<td colspan="2">
 				<span class="optionTitle hide">수량</span>
-				<select>
-					<option value="">- 수량 선택 -</option>
-					<option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
+				<select id="pdcount">
+					<option  value="">- 수량 선택 -</option>
+					<option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
 				</select>
 			</td>
 		</tr>
@@ -305,7 +311,7 @@
 						<!-- 단일옵션일 경우 수량 -->
 						<td class="total_goods_price">
 							<span class="total_goods_tit" designElement="text">총 상품금액</span>
-							<span id="total_goods_price">7,128,000</span> &#x20a9;
+							<span id="total_goods_price">${productDTO.getPdd_sprice()}</span> &#x20a9;
 						</td>
 					</tr>
 					</table>
@@ -368,6 +374,14 @@
 				}
 			}
 		}
+		
+		document.querySelector('#pdcount').onchange = (event) => {
+		var a	=	document.querySelector("#total_goods_price");
+		var p = Number("${productDTO.getPdd_sprice()}");
+		var o = Number(document.querySelector("#pdcount").value);
+		var price = p*o;
+		a.innerHTML= price;
+		}
 		$(function() {
 			var scrollPosition, tabHeight, goodsTabsTop2;
 			tabHeight = $('#goods_tabs').outerHeight();
@@ -405,10 +419,10 @@
 	        text-align: center;
             }
             </style>
-			<div class="goods_description_images goods_view_contents">
-               <!-- 상세설명 출력 부분 해당 부분에 상세정보 이미지가 추가 되어야 합니다.-->
-			</div>
-		</div>
+			<div class="goods_description_images goods_view_contents">			
+				<img src="http://puhu17.cafe24.com/webpage/product/detail/${productDTO.getPdd_detail()}"/>
+            </div>
+            		</div>
 
 		<!-- 상품후기 -->
 		<div class="goods_information_contents goods_review hide" id="goods_review_frame_div"><!-- 상품후기 게시판 가져옴 --></div>

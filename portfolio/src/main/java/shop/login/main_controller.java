@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.inicis.std.util.SignatureUtil;
 
+import shop.dao.ProductDTO;
 import shop.dao.SessionDTO;
 import shop.dao.SigninDTO;
 import shop.dao.faqdao;
@@ -41,15 +43,22 @@ public class main_controller {
 	BasicDataSource dbsource;
 
 	@RequestMapping({"","index"})
-	public String sfsfdf(Model m) {
+	public String sfsfdf(Model m,Integer code) {
 		ProductService productService = new ProductServiceImpl(dbsource);
-		m.addAttribute("draw", productService.getAllProduct("0101"));
-		m.addAttribute("sofa", productService.getAllProduct("0200"));
-		m.addAttribute("bed", productService.getAllProduct("0322"));
-		
-		
-		
-		
+		if(code ==null) code = 0;
+		m.addAttribute("allObject",productService.getAll20Product());
+		switch(code) {
+		case 0:
+			List<ProductDTO> list1 = productService.getAllProduct("0200");
+			List<ProductDTO> list2 = productService.getAllProduct("0101");
+			List<ProductDTO> list = new ArrayList<>();
+			for(ProductDTO a : list1) list.add(a);
+			for(ProductDTO b : list2) list.add(b);
+			m.addAttribute("object", list); break;								
+		case 1:
+		m.addAttribute("object", productService.getAllProduct("0322")); break;
+		default:break;}
+		m.addAttribute("code",code);
 		return "index";
 	}
 
@@ -130,15 +139,14 @@ public class main_controller {
 		return "notice";
 	}
 
-	@RequestMapping("items")
-	public String sdfsea23e(HttpServletRequest req) {
+	@RequestMapping("view")
+	public String sdfsea23e(Model m,Integer no) {
+		ProductService productService = new ProductServiceImpl(dbsource);
+		if(no!=null) m.addAttribute("productDTO", productService.getOne(no));
+		m.addAttribute("view_delivery_cost",3000);
 		return "item";
 	}
 
-	@RequestMapping("complet")
-	public String toComplete(HttpServletRequest req) {
-		return "complet";
-	}
 
 	@RequestMapping("order")
 	public String toOrderCart(HttpServletRequest req) {
@@ -146,7 +154,7 @@ public class main_controller {
 	}
 	
 		@RequestMapping(value="complet", method = RequestMethod.POST)
-		public String payment(Model m , String cname,String chp,HttpServletRequest req) throws Exception{
+		public String payment(Model m , @RequestParam Map<String,String> vals,HttpServletRequest req) throws Exception{
 			/*
 			 * 결제자 정보
 			 * 결제자명, 휴대폰번호('-'빼고), 이메일주소, 상품명, 주문번호, 최종 결제금액
@@ -156,6 +164,7 @@ public class main_controller {
 			 * 상품갯수, 회원(아이디)- 비회원(휴대폰)
 			 * 
 			 */
+		System.out.println(vals);
 		String mid					= "INIpayTest";		                    // 상점아이디					
 		String signKey			    = "SU5JTElURV9UUklQTEVERVNfS0VZU1RS";	// 웹 결제 signkey
 		

@@ -10,10 +10,10 @@
 
 <div id='designDisplay_633b83b7559e9' class='designDisplay' designElement='display' templatePath='main/index.html' displaySeq='10344' page='' perpage='' category='' displayStyle='responsible'>
 <ul class="displayTabContainer displayTabType1">
-        <li class="current" style="width:25%">소파/거실장</li>
-        <li style="width:25%">침대/매트리스</li>
-        <li style="width:25%">식탁/식탁의자</li>
-        <li style="width:25%">쿠션/조명</li>
+        <li style="width:25%"><a href="?code=0">소파/거실장</a></li>
+        <li style="width:25%"><a href="?code=1">침대/매트리스</a></li>
+        <li style="width:25%"><a href="?code=0">식탁/식탁의자</a></li>
+        <li style="width:25%"><a href="?code=0">쿠션/조명</a></li>
 </ul>
 
 <div class="designDisplay_633b83b7559e9 display_responsible_class displayTabContentsContainer displayTabContentsContainerBox" style="display: block;">
@@ -30,7 +30,7 @@
 <div class="gl_inner_item_wrap">
     <!--상품이미지-->
     <div class="gli_image goodsDisplayImageWrap">
-        <a href="javascript:void(0);" class="respItemImageArea" onclick="display_goods_view('<%=draw.get(i).getPdd_idx()%>','',this,'goods_view')">
+        <a href="view?no=<%=draw.get(i).getPdd_idx()%>" class="respItemImageArea" onclick="display_goods_view('<%=draw.get(i).getPdd_idx()%>','',this,'goods_view')">
             <img src="<%=draw.get(i).getPdd_imgurl()%>" data-src="<%=draw.get(i).getPdd_imgurl()%>" class="goodsDisplayImage lazyload" onerror="this.src='./images/noimage.gif'" alt="[디앤에이] 아우라 천연가죽 4인소파"/>
         </a>
         <div class="respGoodsZzim">
@@ -53,13 +53,13 @@
 
             <!-- 상품명-->
             <div class="goodS_info displaY_goods_name">
-                <span class="areA"><a href="/goods/view?no=767"><%=draw.get(i).getPdd_name()%></a></span>
+                <span class="areA"><a href="view?no=<%=draw.get(i).getPdd_idx()%>"><%=draw.get(i).getPdd_name()%></a></span>
             </div>
         </div>
 
         <!-- 짧은 설명 -->
         <div class="goodS_info displaY_goods_short_desc">
-            <span class="areA"><%=draw.get(i).getPdd_explain()%></span>
+            <span class="areA"><a href="view?no=<%=draw.get(i).getPdd_idx()%>"><%=draw.get(i).getPdd_explain()%></a></span>
         </div>
 
         <div class="infO_group">
