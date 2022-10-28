@@ -111,11 +111,7 @@ public class main_controller {
 	public String ssdsa(HttpServletRequest req) {
 		String c = req.getParameter("c");
 		faqmodel f = new faqmodel(dbsource);
-		List<faqdao> lists = new ArrayList<faqdao>();
-		if (c != null)
-			lists = f.callbycategory(Integer.valueOf(c));
-		else
-			lists = f.callbycategory(6);
+		List<faqdao> lists = (c != null)? f.callbycategory(Integer.valueOf(c)):f.callbycategory(6);
 		req.setAttribute("faqlist", lists);
 		return "cs";
 	}
