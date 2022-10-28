@@ -115,9 +115,11 @@ public class admin_ajaxcontroller {
 			a.add(Integer.valueOf(v[i]));
 		}
 		notice_board_dao nd = new notice_board_dao();
-		if(nd.delnotice(a.toArray()))
+		if(nd.delnotice(a.toArray())) {
+			nd=null;
 		response.getWriter().print("suc");
-		else {
+		}else {
+			nd=null;
 			response.getWriter().print("fail");
 		}
 	}

@@ -50,6 +50,7 @@ public class ajax_controller {
 			jo.put("tp_imgurl", k.getTp_imgurl());
 			j.add(jo);
 		}
+		sm=null;
 		return	j.toString();
 	}
 	
@@ -64,6 +65,7 @@ public class ajax_controller {
 		}else {
 			msg = "<script>alert('가입에 실패했습니다.');history.back();</script>";
 		}
+		sign=null;
 		resp.getWriter().print(msg);		
 	}
 	
@@ -73,7 +75,7 @@ public class ajax_controller {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter pwr = response.getWriter();
 		String id = request.getParameter("lgout").intern();
-		System.out.println(id);
+		
 		if(id=="true") {
 			HttpSession session = request.getSession();
 			session.invalidate();

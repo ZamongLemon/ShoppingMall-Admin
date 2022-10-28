@@ -59,6 +59,8 @@ public class main_controller {
 		m.addAttribute("object", productService.getAllProduct("0322")); break;
 		default:break;}
 		m.addAttribute("code",code);
+		productService=null;
+		
 		return "index";
 	}
 
@@ -101,10 +103,10 @@ public class main_controller {
 		noticemodel ntcm = new noticemodel(dbsource);
 		noticedao ntd = ntcm.getbyidx(idx);
 		m.addAttribute("notice",ntd);
+		ntcm=null;
 		}else {
 			return "redirect:notice";
 		}
-		
 		return"noticeview";
 	}
 	@RequestMapping("cs")
@@ -113,6 +115,7 @@ public class main_controller {
 		faqmodel f = new faqmodel(dbsource);
 		List<faqdao> lists = (c != null)? f.callbycategory(Integer.valueOf(c)):f.callbycategory(6);
 		req.setAttribute("faqlist", lists);
+		f=null;
 		return "cs";
 	}
 
@@ -132,6 +135,7 @@ public class main_controller {
 		req.setAttribute("type", type);
 		req.setAttribute("page", Integer.valueOf(page));
 		req.setAttribute("noticelist", lists);
+		n=null;
 		return "notice";
 	}
 
@@ -140,6 +144,7 @@ public class main_controller {
 		ProductService productService = new ProductServiceImpl(dbsource);
 		if(no!=null) m.addAttribute("productDTO", productService.getOne(no));
 		m.addAttribute("view_delivery_cost",3000);
+		productService=null;
 		return "item";
 	}
 
@@ -195,7 +200,9 @@ public class main_controller {
 				session.setMaxInactiveInterval(3600);
 				resp.sendRedirect("index");
 			}
+			sessionService=null;
 			resp.getWriter().print("<script>alert('로그인 정보를 확인하세요.');history.back();</script>");
+			
 			return null;
 		}
 }
