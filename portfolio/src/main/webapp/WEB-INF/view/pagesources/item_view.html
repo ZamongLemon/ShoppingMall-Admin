@@ -322,7 +322,7 @@
 					<ul class="goods_buttons_section">
 						<li>
 							<ul class="basic_btn_area">
-								<li><button type="button" class="btn_resp size_extra2 NpayNo"><span designElement="text" textIndex="107" >장바구니</span></button></li>
+								<li><button type="button" onclick = "addToCart()"class="btn_resp size_extra2 NpayNo"><span designElement="text" textIndex="107" >장바구니</span></button></li>
 								<li><button type="button" class="btn_resp size_extra2 color2 NpayNo"><span designElement="text" textIndex="109" >구매하기</span></button></li>
 							</ul>
 						</li>
@@ -407,6 +407,55 @@
 				}
 			});
 		});
+		
+		const addToCart = () =>{
+			count = $("#pdcount").val();
+			code = "${productDTO.getPdd_code()}"
+			const cart = JSON.parse(localStorage.getItem("webpageCart")) || [];
+			let isEx = false, cnt = false;
+			cart.forEach((objects) => {
+				
+					
+				if(objects.product.pdd_code === code){
+					isEx = true;
+					if(objects.count === count){
+						cnt = true;										
+					}else{
+						objects.count = count;
+					}
+				}
+			})
+			
+			if(isEx){
+				if(cnt){				
+				alert("중복된 개체, 갯수");
+				return;
+				}else{
+					localStorage.setItem("webpageCart",JSON.stringify(cart));
+					console.log(cart);
+					return;
+				}
+			}
+			
+			const product = {
+					"pdd_code":"${productDTO.getPdd_code()}",
+					"pdd_explain":"${productDTO.getPdd_explain()}",
+					"pdd_nprice":"${productDTO.getPdd_nprice()}",
+					"pdd_saleper":"${productDTO.getPdd_saleper()}",
+					"pdd_sprice":"${productDTO.getPdd_sprice()}",
+					"pdd_imgurl":"${productDTO.getPdd_imgurl()}",
+			}
+			value = {
+					"product": product,
+					"count":count
+			}
+			cart.push(value);
+			console.log(cart);
+			localStorage.setItem("webpageCart",JSON.stringify(cart));
+			
+			alert('장바구니에 추가되었습니다.');
+		};
+		
 		</script>
 
 		<!-- 상품상세설명 -->

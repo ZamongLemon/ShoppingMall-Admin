@@ -3,9 +3,14 @@ package adminpage.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.jdbc.core.RowMapper;
 
 import adminpage.model.config;
+import shop.dao.noticedao;
 
 public class product_dao {
 
@@ -201,5 +206,99 @@ public class product_dao {
 			}
 		}
 		return a;
+	}
+	
+	public List<product_dao> getProductList(int page,int objectcnt, int type, String word ) throws Exception{
+		List<product_dao> lists = new ArrayList<>();
+		config db = new config();
+		Connection ct = db.dbc();
+		String sql = "select * from product_detail";		
+		sql+= stringmaker(page, objectcnt, type, word,false);
+		
+		PreparedStatement ps = ct.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+
+		while (rs.next()) {
+			product_dao t = new product_dao();
+			t.s_idx(rs.getString("pdd_idx"));
+			t.s_code(rs.getString("pdd_code"));
+			t.s_name(rs.getString("pdd_name"));
+			t.s_explain(rs.getString("pdd_explain"));
+			t.s_nprice(rs.getString("pdd_nprice"));
+			t.s_saleper(rs.getString("pdd_saleper"));
+			t.s_sprice(rs.getString("pdd_sprice"));
+			t.s_ea(rs.getString("pdd_ea"));
+			t.s_issale(rs.getString("pdd_issale"));
+			t.s_fastsoldout(rs.getString("pdd_fastsoldout"));
+			t.s_detail(rs.getString("pdd_detail"));
+			t.s_imgurl(rs.getString("pdd_imgurl"));
+			t.s_suburl(rs.getString("pdd_suburl"));
+			t.s_suburl2(rs.getString("pdd_suburl2"));
+			System.out.println(t);
+			lists.add(t);
+		}
+		System.out.println(lists);
+		ct.close();
+		return lists;
+		
+	}
+	public int countbn(int page,int objectcnt, int type, String word ) throws Exception {
+		config db = new config();
+		Connection ct = db.dbc();
+		int c = 0;
+		String sql = "select count(*) from product_detail";
+		sql += stringmaker(page, objectcnt, type, word,true);
+
+		PreparedStatement ps = ct.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+			c = rs.getInt("c");
+		}
+		
+		ct.close();
+		return c;
+	}
+	
+	public String stringmaker(int page,int objectcnt, int type, String word, boolean cnt ) {
+		if(page<=0) page = 1;
+		int start = (page-1)*objectcnt;
+		String sql = "";
+		switch(type) {
+		case 1:
+			sql+= " where pdd_name like '%"+word+"%' "; break;
+		case 2:
+			sql+= " where pdd_code = '"+word+"' "; break;
+		case 0:
+			break;		
+		}
+		sql+=(!cnt)?
+		" order by pdd_idx desc limit "+start+","+objectcnt		
+		: " order by pdd_idx desc ";
+		return sql;
+	}
+
+	public boolean del_product(Object[] vals) {
+		boolean res = false;
+		config db = new config();
+		Connection ct = db.dbc();
+		PreparedStatement ps = null;
+		int p = 0;
+		try {
+			for (int i = 0; i < vals.length; i++) {
+				String sql = "delete from product_detail where pdd_idx = ?";
+
+				ps = ct.prepareStatement(sql);
+				ps.setObject(1, vals[i]);
+				;
+				p += ps.executeUpdate();
+			}
+			res = (p > 0) ? true : false;
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return res;
 	}
 }

@@ -69,5 +69,25 @@
      <%@ include file="./pagesources/footer.html" %>
 </div>
 </div>
+
+
 </body>
+
+<script>
+
+ 	const cart = JSON.parse(localStorage.getItem("webpageCart")) || [];
+ 	var saletotal = 0;
+ 	var normaltotal=0;
+ 	cart.forEach( (obj) =>{
+ 		normaltotal += Number(obj.product.pdd_nprice)*Number(obj.count);
+ 		console.log(normaltotal);
+ 		saletotal += Number(obj.product.pdd_sprice)*Number(obj.count);
+ 		console.log(saletotal);
+ 	})
+ 	document.querySelector("#nPrice").innerText = normaltotal.toLocaleString();
+	document.querySelector("#sPrice").innerText = saletotal.toLocaleString();
+	document.querySelector("#saled").innerText = (normaltotal-saletotal).toLocaleString();
+	
+	
+</script>
 </html>

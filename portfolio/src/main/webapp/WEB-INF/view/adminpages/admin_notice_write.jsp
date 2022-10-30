@@ -18,6 +18,7 @@
     <link rel="icon" href="./img/logo.png" sizes="32x32">
     <link rel="icon" href="./img/logo.png" sizes="16x16">
     <script src="./jq/jquery.js"></script>
+    <script src="./ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <header class="headercss">
@@ -37,5 +38,13 @@
 <%@include file="./pagesource_admin/admin_footer.html"%>
 </footer>
 </body>
-    <script src="./fns/noticefs.js?v=3"></script>
+	<script>
+	    CKEDITOR.replace('ckedit',{
+	    	width:'100%',
+	    	height:'300px'
+	    })
+	    	
+
+	</script>
+    <script src="./fns/noticefs.js?v=1"></script>
 </html>

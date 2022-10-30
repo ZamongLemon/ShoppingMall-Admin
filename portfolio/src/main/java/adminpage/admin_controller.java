@@ -112,18 +112,22 @@ public class admin_controller {
 		String page = request.getParameter("p");
 		if(page== null || Integer.valueOf(page)<=0) page = "1";
 		String view = request.getParameter("pv");
-		if(view== null || Integer.valueOf(view)<=0) view = "5";
-		
+		if(view== null || Integer.valueOf(view)<=0) view = "20";
+		String type = request.getParameter("t");
+		if(type== null || Integer.valueOf(type)<=0) type = "0";
+		String word = request.getParameter("w");
+		if(word==null) word = "";		
 		int iview = Integer.valueOf(view);
 		int ipage = Integer.valueOf(page);
 
 		product_dao prd = new product_dao();
 		int length =prd.retCount();
 		double pd_maxPage=  Math.ceil((double)length/Double.valueOf(page));
-		ArrayList<product_dao> pddl = prd.listnumb((ipage-1)*iview, iview);
+		List<product_dao> pddl = prd.getProductList((ipage-1)*iview, iview, Integer.valueOf(type),word);
 		request.setAttribute("productlist",pddl);
 		request.setAttribute("c_maxpage", pd_maxPage);
 		request.setAttribute("page", ipage);
+		prd = null;
 		return "adminpages/admin_product";
 	}
 

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import adminpage.dao.notice_board_dao;
+import adminpage.dao.product_dao;
 import adminpage.model.admin_callset_model;
 import adminpage.model.admin_siteset_model;
 import adminpage.model.adminapprv;
@@ -193,6 +194,26 @@ public class admin_ajaxcontroller {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().print(j);
 	
+	}
+	
+	@PostMapping("admin/del_prod")
+	public void delete_product(HttpServletRequest request, HttpServletResponse response) throws Exception  {
+		request.setCharacterEncoding("utf-8");
+		
+		String p = request.getParameter("key");
+		String[] v = p.split(",");
+		Set<Integer> a = new HashSet<Integer>();
+		for(int i = 0 ; i < v.length;i++) {
+			a.add(Integer.valueOf(v[i]));
+		}
+		product_dao nd = new product_dao();
+		if(nd.del_product(a.toArray())) {
+			nd=null;
+		response.getWriter().print("suc");
+		}else {
+			nd=null;
+			response.getWriter().print("fail");
+		}
 	}
 }
 

@@ -155,7 +155,7 @@ var loop = 0;
 			cnt++;
 			}
 		}
-		if(n.length!=0 && confirm("공지사항을 삭제하시겠습니까? (데이터는 복구 불가능합니다.)")){
+		if(n.length!=0 && confirm("물품을 삭제하시겠습니까? (데이터는 복구 불가능합니다.)")){
 			$.ajax({
 			    url: "del_notice", 
 			    data: { "key": n.toString()},                        

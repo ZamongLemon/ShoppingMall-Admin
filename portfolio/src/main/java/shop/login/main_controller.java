@@ -42,6 +42,10 @@ public class main_controller {
 	@Autowired
 	BasicDataSource dbsource;
 
+	@RequestMapping("carttest")
+	public String vdsad() {
+		return "carttest";
+	}
 	@RequestMapping({"","index"})
 	public String sfsfdf(Model m,Integer code) {
 		ProductService productService = new ProductServiceImpl(dbsource);

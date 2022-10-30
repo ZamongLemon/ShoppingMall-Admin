@@ -5,13 +5,14 @@
 <div class="subpage_view">
     <span>등록된 상품 0건</span>
     <span>
-        <form>
-        <select class="p_select1">
-            <option>상품명</option>
-            <option>상품코드</option>
+        <form name="f" enctype="application/x-www-form-urlencoded">
+        <select name = "t"class="p_select1">
+            <option value="0">선택해주세요</option>
+            <option value="1">상품명</option>
+            <option value="2">상품코드</option>
         </select>
-        <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
-        <input type="submit" value="검색" title="상품검색" class="p_submit">
+        <input type="text" class="p_input1" name="w" placeholder="검색어를 입력해 주세요">
+        <input type="submit" value="검색" title="상품검색" onClick="searchProduct()" class="p_submit">
         </form>
     </span>
 </div>
@@ -38,7 +39,7 @@
     <%}else{
     for(int i = 0 ; i< k ; i++){%>
     <ul>
-        <li><input type="checkbox"></li>
+        <li><input type="checkbox" name="cbox" id="<%=pdl.get(i).g_idx()%>"></li>
         <li><%=pdl.get(i).g_code()%></li>
         <li><%if(pdl.get(i).g_imgurl()==null){%>이미지 없음
         <%}else{%>
@@ -69,21 +70,47 @@
     </ul>
 </div>
 <div class="subpage_view4">
-    <input type="button" value="선택상품 삭제" title="선택상품 삭제" class="p_button">
+    <input type="button" value="선택상품 삭제" title="선택상품 삭제" onclick="delProd()" class="p_button">
     <span style="float: right;">
     <input type="button" value="신규상품 등록" title="신규상품 등록"  onclick="productwrite()"class="p_button p_button_color1">
     <input type="button" value="카테고리 등록" title="카테고리 등록"  onclick="mvcategorywrite()" class="p_button p_button_color2">
     </span>
 </div>
 <script>
+
 function productwrite(){
 	location.href="./productwrite";
 }
 	function mvcategorywrite(){
 		location.href="./writeproductcode";
 	}
-	function control(int){
-		console.log(int);
+	
+	searchProduct = () =>{
+		f.method="get";
+		f.action="product";
+		f.submit();
+	}
+	delProd = (idx)=>{
+		var k = document.getElementsByName("cbox");
+		var n = [];		
+		var cnt = 0;
+		for(var i = 0 ; i < k.length; i++){
+			if(k[i].checked){				
+			n[cnt] = k[i].id;			
+			cnt++;
+			}
+		}
+		if(n.length!=0 && confirm("공지사항을 삭제하시겠습니까? (데이터는 복구 불가능합니다.)")){
+			$.ajax({
+			    url: "del_prod", 
+			    data: { "key": n.toString()},                        
+			    method: "post",                      
+			    dataType: "text",
+			    success: function(data){
+					location.reload();
+				},error: console.log("error")
+				});
+		}
 	}
 
 </script>

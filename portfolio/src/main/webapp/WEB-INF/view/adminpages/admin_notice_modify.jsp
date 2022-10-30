@@ -19,6 +19,7 @@
     <link rel="icon" href="./img/logo.png" sizes="32x32">
     <link rel="icon" href="./img/logo.png" sizes="16x16">
     <script src="./jq/jquery.js"></script>
+    <script src="./ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <header class="headercss">
@@ -38,15 +39,19 @@
 <%@include file="./pagesource_admin/admin_footer.html"%>
 </footer>
 </body>
-    <script src="./fns/noticefs.js?v=4"></script>
+    <script src="./fns/noticefs.js?v=1"></script>
     <script>
+    CKEDITOR.replace('ckedit',{
+    	width:'100%',
+    	height:'300px'
+    })
     	<%if(ntc!=null){%>
     	<%if(ntc.getBn_ontop()=="1"){%>
     	frm.bn_ontop.checked=true;
     	<%}%>
     	frm.bn_title.value = "<%=ntc.getBn_title()%>";
-    	frm.bn_name.value = "<%=ntc.getBn_name()%>";	
-    	frm.bn_txt.innerText = "<%=ntc.getBn_txt()%> ";   	
+    	frm.bn_name.value = "<%=ntc.getBn_name()%>";
+    	CKEDITOR.instances.ckedit.setData('<%=ntc.getBn_txt()%>');
     	<%}%>
     </script>
 </html>

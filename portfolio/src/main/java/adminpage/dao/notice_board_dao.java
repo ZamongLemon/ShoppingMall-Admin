@@ -104,7 +104,7 @@ public class notice_board_dao {
 			int p = 0;
 			try {
 				for(int i = 0 ; i < vals.length;i++) {
-				String sql = "delete from board_notice where bn_idx = ?";
+				String sql = "delete from product_detail where pdd_idx = ?";
 
 				ps = ct.prepareStatement(sql);						
 				ps.setObject(1, vals[i]);;

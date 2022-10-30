@@ -5,7 +5,7 @@ function submnotice(){
 	}else if(frm.bn_txt.value==null){
 		alert("제목을 입력하세요.");
 	}else{
-		
+	CKEDITOR.instances.ckedit.getData();
 	frm.method="post";
 	frm.enctype="multipart/form-data";
 	frm.action="./writenotice";
