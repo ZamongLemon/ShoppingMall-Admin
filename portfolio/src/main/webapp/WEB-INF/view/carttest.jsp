@@ -18,7 +18,7 @@
 </body>
 <script>
 
-	cleanCart = () => {localStorage.clear();}
+
 	const addToCart = (code,count) =>{
 		const cart = JSON.parse(localStorage.getItem("webpageCartTest")) || [];
 		let isEx = false, cnt = false;

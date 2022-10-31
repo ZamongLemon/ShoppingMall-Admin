@@ -60,11 +60,13 @@
 <div id="layout_wrap" class="layout_wrap">
     <%@ include file="./pagesources/top.html" %>
 </div>
-		
+<form name = "f" enctype="application/x-www-form-urlencoded">
 <div class="resp_wrap display_wrap">
 <%@ include file="./pagesources/cart.html" %>
 </div>
-
+<input type ="hidden" name="codelists" value="" />
+<input type ="hidden" name="counts" value=""/>
+</form>		
 <div id="layout_footer" class="layout_footer">
      <%@ include file="./pagesources/footer.html" %>
 </div>
@@ -78,15 +80,32 @@
  	const cart = JSON.parse(localStorage.getItem("webpageCart")) || [];
  	var saletotal = 0;
  	var normaltotal=0;
+	var codelist = [];
+	var codecnt =[];
  	cart.forEach( (obj) =>{
+//  		console.log(obj);
  		normaltotal += Number(obj.product.pdd_nprice)*Number(obj.count);
- 		console.log(normaltotal);
  		saletotal += Number(obj.product.pdd_sprice)*Number(obj.count);
- 		console.log(saletotal);
+ 		codecnt = [obj.product.pdd_code,obj.count];
+ 		codelist.push(codecnt);
+//  		console.log(obj.count);
+//  		console.log(obj.product);
  	})
+//  	console.log(codelist);
+//  	console.log(counts);
  	document.querySelector("#nPrice").innerText = normaltotal.toLocaleString();
 	document.querySelector("#sPrice").innerText = saletotal.toLocaleString();
 	document.querySelector("#saled").innerText = (normaltotal-saletotal).toLocaleString();
+	
+	codes = ()=>{
+		f.method="post";
+		f.action="order";
+		
+		f.codelists.value=codelist;
+		console.log(codelist);
+		f.submit();
+		
+	}
 	
 	
 </script>

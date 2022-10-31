@@ -2,23 +2,23 @@
 <script language="javascript" type="text/javascript" src="https://stgstdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
 
 <form name="frm" id="frm">
-	<input type="hidden" name="version" value="${version}">
-	<input type="hidden" name="gopaymethod" value="CARD">
-	<input type="hidden" name="mid" value="">
-	<input type="hidden" name="oid" value="">
-	<input type="hidden" name="price" value="">
-	<input type="hidden" name="timestamp" value="">
-	<input type="hidden" name="signature" value="">
-	<input type="hidden" name="mKey" value="">
-	<input type="hidden" name="currency" value="${version}">
+	<input type="hidden" name="version" value="1.0">
+	<input type="hidden" name="gopaymethod" value="<%=orderDTO.getPayment()%>">
+	<input type="hidden" name="mid" value="<%=orderDTO.getOrderNum()%>">
+	<input type="hidden" name="oid" value="<%=signParam.get("oid")%>">
+	<input type="hidden" name="price" value="<%=orderDTO.getSPrice()%>">
+	<input type="hidden" name="timestamp" value="<%=signParam.get("timestamp")%>">
+	<input type="hidden" name="signature" value="<%=signParam.get("signature")%>">
+	<input type="hidden" name="mKey" value="<%=signParam.get("mKey")%>">
+	<input type="hidden" name="currency" value="WON">
 	<!--  결제자 정보 -->
-	<input type="hidden" name="buyername" value=""><!--  결제자명 -->
-	<input type="hidden" name="buyertel" value=""><!--  숫자만 -->
-	<input type="hidden" name="buyeremail" value=""><!--  결제자 이메일 -->
-	<input type="hidden" name="goodname" value=""><!-- 상품명 -->
-	<input type="hidden" name="goodea" value=""><!-- 상품수 -->
-	<input type="hidden" name="returnUrl" value="http://puhu17.cafe24.com/INIstdpay_pc_return.jsp">
-	<input type="hidden" name="closeUrl" value="http://puhu17.cafe24.com/close.jsp">
+	<input type="hidden" name="buyername" value="<%=orderDTO.getBuyerName()%>"><!--  결제자명 -->
+	<input type="hidden" name="buyertel" value="<%=orderDTO.getBuyerPhone()%>"><!--  숫자만 -->
+	<input type="hidden" name="buyeremail" value="<%=orderDTO.getBuyerEmail()%>"><!--  결제자 이메일 -->
+	<input type="hidden" name="goodname" value="<%=productLists.get(0).getPdd_name()%>"><!-- 상품명 -->
+	<input type="hidden" name="goodea" value="<%=counts[0]%>"><!-- 상품수 -->
+	<input type="hidden" name="returnUrl" value="http://localhost:8080/webpage/returnpage">
+	<input type="hidden" name="closeUrl" value="http://localhost:8080/webpage/closepage">
 </form>
 <script> payment= () => {
 	INIStdPay.pay("frm");
@@ -51,31 +51,53 @@
                                 </li>
                             </ul>
                         </li>
-    
-                        <li class="cart_goods ">
+    					<% for(int i = 0 ; i < len ; i++){%>
+                        <li class="cart_goods">
                             <div class="cart_goods_detail">
+    
                                 <div class="cgd_contents">
                                     <div class="block block1">
                                         <ul>
                                             <li class="img_area">
-                                                <a href="#"><img src="" class="goods_thumb" alt="상품이미지" /></a>
+                                                <img src="<%=productLists.get(i).getPdd_imgurl()%>" title="" alt="상품이미지" /></a>
                                             </li>
                                             <li class="option_area">
-                                                <div class="goods_name v2 d2">
-                                                    <a href="#">상품명</a>
-                                                </div>		
-                                                <ul class="cart_option">
-                                                    <li><span class="xtle">색상</span> 블루</li>
-                                                </ul>
-                                                <div class="cart_quantity">
-                                                    <span class="xtle">수량</span> 1개												<span class="add_txt">(8,910,000&#x20a9;)</span>
+    
+    
+                                                <div class="goods_name v2">
+                                                    <a href=""><%=productLists.get(i).getPdd_name()%></a>
                                                 </div>
+    
+    
+                                                <div class="cart_quantity">
+                                                    <span class="xtle">수량</span> <%=counts[i]%>개
+                                                    <span class="add_txt">(<span class="cart_price_num"><%=productLists.get(i).getPdd_sprice()%></span>&#x20a9;)</span>
+                                                </div>
+    
+    
                                             </li>
                                         </ul>
                                     </div>
+    
+                                    <ul class="block block2 x1" id="mobile_cart_sale_tr_989">
+                                        <li class="price_a">
+                                            <span class="ptitle">상품금액</span> <%=productLists.get(i).getPdd_nprice()%>&#x20a9;
+                                        </li>
+                                        <li id="cart_sale_tr_989" class="price_b">
+                                            <span class="ptitle">할인금액</span>
+                                            <div id="cart_option_sale_total_989">
+                                               <%=Integer.valueOf(productLists.get(i).getPdd_nprice())-Integer.valueOf(productLists.get(i).getPdd_sprice())%>
+                                            </div>    
+                                        </li>
+                                        <li class="price_c">
+                                            <span class="ptitle">할인적용금액</span>
+                                            <span class="total_p"><span id="option_suboption_price_sum_989"><%=productLists.get(i).getPdd_sprice()%></span>&#x20a9;</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </li>
+                        <%}%>
                     </ul>
                 </div>
             </div>
@@ -88,12 +110,12 @@
                 <h3 class="title3"><span>주문자</span></h3>
                 <ul class="list_01 v2">
                     <li>
-                        <span class="name1 pointcolor2 imp">홍길동</span>
+                        <span class="name1 pointcolor2 imp"><%=orderDTO.getBuyerName()%></span>
                     </li>
                     <li>
-                        <span class="phone1">010-1234-5678</span>
+                        <span class="phone1"><%=orderDTO.getBuyerPhone()%></span>
                     </li>
-                    <li><span class="email1">hong@nate.com</span></li>
+                    <li><span class="email1"><%=orderDTO.getBuyerEmail()%></span></li>
                     <li class="desc">
                         주문자 정보로 주문 관련 정보가 문자와 이메일로 발송됩니다.<br />
                         비회원은 이메일과 주문번호로 주문조회가 가능합니다.<br />
@@ -103,21 +125,21 @@
                 <h3 class="title3"><span>배송지</span></h3>
                 <ul class="list_01 v2">
                     <li>
-                        <span class="name1 pointcolor imp">홍길동</span>
+                        <span class="name1 pointcolor imp"></span>
                         <span class="gray_06">(대한민국)</span>
                     </li>
                     <li>
-                        [ 12345 ]
-                        서울특별시 마포구 신촌로 25-4<br/>
+                        [ <%=orderDTO.getReceiverPostcode()%> ]
+                        <%=orderDTO.getReceiverStreetAddress()%><br/>
                         <span class="desc">
-                        (25-4)
+                        <%=orderDTO.getReceiverAddressDetail()%>
                         </span>
                     </li>
                     <li>
-                        010-1234-5678
+                        <%=orderDTO.getBuyerPhone()%>
                     </li>
                     <li>
-                        배송 전에 미리 연락해 주세요.
+                        <%=orderDTO.getMemo()%>
                     </li>
                 </ul>
             </div>
@@ -130,20 +152,20 @@
                 <div class="order_price_total">
                     <ul>
                         <li class="th"><strong><span>상품금액</span></strong></li>
-                        <li class="td">8,910,000&#x20a9;</li>
+                        <li class="td"><%=ssum%>&#x20a9;</li>
                     </ul>
                     <ul>
                         <li class="th">
                             <span>배송비</span>&nbsp;
                         </li>
                         <li class="td">
-                            (+) 0&#x20a9;
+                            (+) <%=postCost%>&#x20a9;
                         </li>
                     </ul>
                     <ul class="total">
                         <li class="th"><span>총 결제금액</span></li>
                         <li class="td">
-                            <span class="price"><span class="settle_price">8,910,000</span>&#x20a9;</span>
+                            <span class="price"><span class="settle_price"><%=ssum-postCost%></span>&#x20a9;</span>
                         </li>
                     </ul>
                 </div>		
@@ -154,8 +176,8 @@
                         <tr>
                             <th scope="row"><p>주문번호</p></th>
                             <td>
-                                123456789 &nbsp;
-                                <span class="Dib desc">(2022-10-25 14:26)</span>
+                                <%=orderDTO.getOrderNum()%> &nbsp;
+                                <span class="Dib desc"><%=orderDTO.getOrderDate()%></span>
                             </td>
                         </tr>
                         <tr>
@@ -171,22 +193,28 @@
                         <tr>
                             <th scope="row"><p>결제방식</p></th>
                             <td>
-                                신용카드
-                            </td>
-                        </tr>
-                        <!--무통장 일 경우-->
-                        <tr class="hide">
+                                <% switch(orderDTO.getPayment()){
+                                case "CARD" :%> 신용카드<% break;
+                                case "bank" : %> 무통장입금
+                                                         <!--무통장 일 경우-->
+                        <tr>
                             <th scope="row"><p>입금계좌</p></th>
                             <td>신한은행 100-033-123456 예금주:주식회사 더조은</td>
                         </tr>
-                        <tr class="hide">
+                        <tr>
                             <th scope="row"><p>입금기간</p></th>
                             <td>2022년 11월 07일까지 (이후 입금되지 않았을 경우 자동으로 주문무효 처리)</td>
                         </tr>
+                        <%break;
+                                case "escrow_virtual" : %> 가상계좌<%break;
+                                }%>
+                            </td>
+                        </tr>
+
                         <!--무통장 일 경우-->
                         <tr>
                             <th scope="row"><p>결제금액</p></th>
-                            <td><strong>8,910,000&#x20a9;</strong></td>
+                            <td><strong><%=orderDTO.getSPrice()%>&#x20a9;</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -195,7 +223,7 @@
     </div>
     
     <div class="Pb60 C">
-        <a href="#" class="btn_resp size_c color2"><span>주문취소</span></a>
+        <a href="./cancel?ord=<%=orderDTO.getOrderNum()%>" class="btn_resp size_c color2"><span>주문취소</span></a>
         <a href="javascript:void payment()" class="btn_resp size_c color5"><span>결제하기</span></a>
     </div>
     <style type="text/css">
@@ -206,4 +234,8 @@
         .subpage_wrap.order_payment .order_payment_left2 { padding-right:0; }
         .subpage_wrap.order_payment .order_payment_right2 { padding-left:0; }
     }
+    
     </style>
+    <script>
+    </script>
+    

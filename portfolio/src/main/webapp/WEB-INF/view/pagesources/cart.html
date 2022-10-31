@@ -95,7 +95,7 @@
                 
                 <div class="btns">
                     <button type="button" class="btn_resp size_b color2 btn_selected_order">선택상품 주문하기</button>
-                    <button type="button" class="btn_resp size_b gray_05 btn_select_del">선택상품 삭제</button>
+                    <button type="button" Onclick="clean()" class="btn_resp size_b gray_05 btn_select_del">선택상품 삭제</button>
                 </div>
             </div>
         </li>
@@ -129,7 +129,7 @@
     
             <ul class="cart_order_btn_area">
                 <li>
-                    <input type="button" class="btn_resp size_c color2 btn_all_order"  value="전체 주문하기" />
+                    <input type="button" onclick="codes()" class="btn_resp size_c color2 btn_all_order"  value="전체 주문하기" />
                 </li>
             </ul>
             <div class="pdb10 center"></div>
@@ -139,3 +139,9 @@
     </ul>
         <div class="total_price_n_btns">
         </div>
+        
+        <script>
+        
+    	clean = () => {localStorage.clear();location.reload();}
+ 
+    	</script>

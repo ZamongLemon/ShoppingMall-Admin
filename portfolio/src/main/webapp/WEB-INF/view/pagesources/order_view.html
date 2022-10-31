@@ -25,7 +25,7 @@
     <div id="PromotionDialog" class="hide"></div>
     <div id="couponDownloadDialog" style="display:none"></div>
     
-    <form name="orderFrm" id="orderFrm" method="post" action="cacluate" target="actionFrame">
+    <form name="orderFrm" id="orderFrm"  target="_self">
     <div class="subpage_wrap">
         <div class="subpage_container v3 Pb10">
             <!-- 타이틀 -->
@@ -61,7 +61,7 @@
                                 </li>
                             </ul>
                         </li>
-    
+    					<% for(int i = 0 ; i < len ; i++){%>
                         <li class="cart_goods">
                             <div class="cart_goods_detail">
     
@@ -69,23 +69,19 @@
                                     <div class="block block1">
                                         <ul>
                                             <li class="img_area">
-                                                <a href="#"><img src="" title="" alt="상품이미지" /></a>
+                                                <img src="<%=productLists.get(i).getPdd_imgurl()%>" title="" alt="상품이미지" /></a>
                                             </li>
                                             <li class="option_area">
     
     
                                                 <div class="goods_name v2">
-                                                    <a href="">아우라 천연가죽 4인소파</a>
+                                                    <a href=""><%=productLists.get(i).getPdd_name()%></a>
                                                 </div>
     
     
-                                                <ul class="cart_option">
-                                                    <li><span class="xtle">색상</span> 블루</li>
-                                                </ul>
-
                                                 <div class="cart_quantity">
-                                                    <span class="xtle">수량</span> 1개
-                                                    <span class="add_txt">(<span class="cart_price_num">8,910,000</span>&#x20a9;)</span>
+                                                    <span class="xtle">수량</span> <%=counts[i]%>개
+                                                    <span class="add_txt">(<span class="cart_price_num"><%=productLists.get(i).getPdd_sprice()%></span>&#x20a9;)</span>
                                                 </div>
     
     
@@ -95,22 +91,23 @@
     
                                     <ul class="block block2 x1" id="mobile_cart_sale_tr_989">
                                         <li class="price_a">
-                                            <span class="ptitle">상품금액</span> 8,910,000&#x20a9;
+                                            <span class="ptitle">상품금액</span> <%=productLists.get(i).getPdd_nprice()%>&#x20a9;
                                         </li>
                                         <li id="cart_sale_tr_989" class="price_b">
                                             <span class="ptitle">할인금액</span>
                                             <div id="cart_option_sale_total_989">
-                                                -
+                                               <%=Integer.valueOf(productLists.get(i).getPdd_nprice())-Integer.valueOf(productLists.get(i).getPdd_sprice())%>
                                             </div>    
                                         </li>
                                         <li class="price_c">
                                             <span class="ptitle">할인적용금액</span>
-                                            <span class="total_p"><span id="option_suboption_price_sum_989">8,910,000</span>&#x20a9;</span>
+                                            <span class="total_p"><span id="option_suboption_price_sum_989"><%=productLists.get(i).getPdd_sprice()%></span>&#x20a9;</span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </li>
+                        <%}%>
                     </ul>
                 </div>
             </div>
@@ -194,7 +191,7 @@
                             <div class="order_price_total">
                                 <ul>
                                     <li class="th"><span class="gray_01 Fs17" designElement="text" textIndex="7"   >상품금액</span></li>
-                                    <li class="td"><span id="total_goods_price" class="v2 gray_01">8,910,000</span>&#x20a9;</li>
+                                    <li class="td"><span id="total_goods_price" class="v2 gray_01"><%=nsum%></span>&#x20a9;</li>
                                 </ul>
                                 <ul>
                                     <li class="th">
@@ -212,23 +209,28 @@
                                     </li>
                                     <li class="td pointcolor3">
                                         <span>(-)</span>
-                                        <span class="total_sales_price">0</span>&#x20a9;
+                                        <span class="total_sales_price"><%=nsum-ssum%></span>&#x20a9;
                                     </li>
                                 </ul>
                                 <ul class="total">
                                     <li class="th"><span designElement="text" textIndex="14"   >최종 결제금액</span></li>
                                     <li class="td">
-                                        <span class="price"><span class="settle_price">8,910,000</span>&#x20a9;</span>
+                                        <span class="price"><span class="settle_price"><%=ssum%></span>&#x20a9;</span>
                                     </li>
                                 </ul>
+    						<input type="hidden" name="listCodes" value="<%=Arrays.toString(codes)%>"/>
+    						<input type="hidden" name="counts" value="<%=Arrays.toString(counts)%>"/>
+    						<input type="hidden" name="nPrice" value="<%=nsum%>"/>
+    						<input type="hidden" name="sPrice" value="<%=ssum%>"/>
+    						
                             </div>
-    
+
     
                             <!-- ++++++++++++++++++++ 결제 금액 :: END ++++++++++++++++++++ -->
     
     
                             <!-- ++++++++++++++++++++ 결제 수단 :: START ++++++++++++++++++++ -->
-                            <h3 class="title3"><span designElement="text" textIndex="17"   >결제 수단</span></h3>
+                            <h3 class="title3"><span designElement="text" textIndex="17" >결제 수단</span></h3>
                             <ul class="payment_method_select clearbox" id="payment_type">
     
                                 
@@ -238,7 +240,7 @@
                                 
                                 
                                 <li>
-                                    <label><input type="radio" name="payment" value="card" />신용카드</label>
+                                    <label><input type="radio" name="payment" value="CARD" />신용카드</label>
                                 </li>
                                 <li>
                                         <label><input type="radio" name="payment" value="escrow_virtual" />가상계좌</label>                                
@@ -338,10 +340,16 @@
     	
     	$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
     	const submOrder = ()=>{
+    		if(!orderFrm.agree1.checked || !orderFrm.agree2.checked || !orderFrm.agree3.checked ||!orderFrm.policy_delegation.checked){
+    			alert("동의사항을 모두 체크하셔야 합니다.");
+    			
+    		}else{
+    			
     		orderFrm.enctype="application/json";
     		orderFrm.action="complet";
     		orderFrm.method="post";
     		orderFrm.submit();
+    		}
     	}
     	 
     	 

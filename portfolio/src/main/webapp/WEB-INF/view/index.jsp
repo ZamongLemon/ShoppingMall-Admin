@@ -106,28 +106,7 @@ background-color:#ffffff;}
 		});
 	});
 
-   	function loadbestproduct(){
-   		$.ajax({
-   		    url: "bestproduct", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-   		    data: { tablename: "temptable" },  // HTTP 요청과 함께 서버로 보낼 데이터
-   		    method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-   		    dataType: "JSON", // 서버에서 보내줄 데이터의 타입,
-   		    success : function(data){
-   		    	console.log(data);
-   		    	var len = data.length;
-   		    	var base = $("#bestproductlist");
-   		    	for(var i = 0 ; i < len ; i++){
-   		    		var innerwrap = document.createElement("div");
-   		    		innerwrap.className= "gl_inner_item_wrap";
-   		    		
-   		    	}
-   		    },
-   		    fail:function(){
-   		    	console.log("fail");
-   		    }
-   		    
-   		})   		
-   	};
+   	
    	
     loadbestproduct();
 </script>

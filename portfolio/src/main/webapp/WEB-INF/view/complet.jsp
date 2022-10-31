@@ -1,6 +1,28 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="shop.dao.OrderDTO"%>
+<%@page import="java.util.Map"%>
+<%@page import="shop.dao.ProductDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="./pagesources/session.jsp"%>
+    <%
+    List<ProductDTO> productLists = (List<ProductDTO>)request.getAttribute("lists");
+    	String[] counts = (String[])request.getAttribute("cnts");
+    int len = productLists.size();
+
+    int nsum = 0,ssum=0;
+    int postCost = 0;
+    for(int i = 0 ; i < len ; i++){
+    	nsum +=Integer.valueOf(productLists.get(i).getPdd_nprice());
+    	ssum +=Integer.valueOf(productLists.get(i).getPdd_sprice());
+    }
+    Map<String,String> vals = (Map<String,String>)request.getAttribute("vals");
+    OrderDTO orderDTO = (OrderDTO)request.getAttribute("orderDetail");
+    Map<String,String> signParam = (HashMap<String,String>)request.getAttribute("signParam");
+	
+    %>
+    
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"  xmlns:fb="http://ogp.me/ns/fb#"  xmlns:og="http://ogp.me/ns#">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/fb/website#">
@@ -41,7 +63,7 @@
 <script src="./js/jquery.slides.min.js"></script>
 <script src="./js/jquery.placeholder.js"></script>
 <script src="./js/jquery.validate.js"></script>
-<script src="./js/jquery.ezmark.min.js"></script>
+<script src="./js/jquery.ezmark.min.js"></script>`
 <script src="./js/custom-select-box.js"></script>
 <script src="./js/custom-mobile-pagination.js"></script>
 <script src="./js/slick.min.js"></script>

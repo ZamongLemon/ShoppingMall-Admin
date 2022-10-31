@@ -426,17 +426,6 @@
 				}
 			})
 			
-			if(isEx){
-				if(cnt){				
-				alert("중복된 개체, 갯수");
-				return;
-				}else{
-					localStorage.setItem("webpageCart",JSON.stringify(cart));
-					console.log(cart);
-					return;
-				}
-			}
-			
 			const product = {
 					"pdd_code":"${productDTO.getPdd_code()}",
 					"pdd_explain":"${productDTO.getPdd_explain()}",
@@ -445,14 +434,27 @@
 					"pdd_sprice":"${productDTO.getPdd_sprice()}",
 					"pdd_imgurl":"${productDTO.getPdd_imgurl()}",
 			}
+
 			value = {
 					"product": product,
 					"count":count
 			}
-			cart.push(value);
-			console.log(cart);
-			localStorage.setItem("webpageCart",JSON.stringify(cart));
+			if(isEx){
+				if(cnt){				
+				alert("중복된 개체, 갯수");
+				return;
+				}else{
+					
+					localStorage.setItem("webpageCart",JSON.stringify(cart));
+					console.log(cart);
+					return;
+				}
+			}
 			
+			console.log(value);
+			cart.push(value);
+			localStorage.setItem("webpageCart",JSON.stringify(cart));
+			console.log(cart);
 			alert('장바구니에 추가되었습니다.');
 		};
 		

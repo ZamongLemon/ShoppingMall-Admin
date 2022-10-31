@@ -1,6 +1,22 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="shop.dao.ProductDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
     <%@ include file="./pagesources/session.jsp"%>
+    <% List<ProductDTO> productLists = (List<ProductDTO>)request.getAttribute("lists");
+    	String[] counts = (String[])request.getAttribute("cnts");
+    int len = productLists.size();
+    String[] codes = (String[])request.getAttribute("codes");
+   
+    int nsum = 0,ssum=0;
+    
+    for(int i = 0 ; i < len ; i++){
+    	nsum +=Integer.valueOf(productLists.get(i).getPdd_nprice());
+    	ssum +=Integer.valueOf(productLists.get(i).getPdd_sprice());
+    }
+   
+    %>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"
 	xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
