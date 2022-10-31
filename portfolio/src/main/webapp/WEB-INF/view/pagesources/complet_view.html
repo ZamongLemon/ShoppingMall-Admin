@@ -4,12 +4,12 @@
 <form name="frm" id="frm">
 	<input type="hidden" name="version" value="1.0">
 	<input type="hidden" name="gopaymethod" value="<%=orderDTO.getPayment()%>">
-	<input type="hidden" name="mid" value="<%=orderDTO.getOrderNum()%>">
+	<input type="hidden" name="mid" value="<%=anotherValue.get("mid")%>">
 	<input type="hidden" name="oid" value="<%=signParam.get("oid")%>">
-	<input type="hidden" name="price" value="<%=orderDTO.getSPrice()%>">
+	<input type="hidden" name="price" value="<%=signParam.get("price")%>">
 	<input type="hidden" name="timestamp" value="<%=signParam.get("timestamp")%>">
-	<input type="hidden" name="signature" value="<%=signParam.get("signature")%>">
-	<input type="hidden" name="mKey" value="<%=signParam.get("mKey")%>">
+	<input type="hidden" name="signature" value="<%=request.getAttribute("signature")%>">
+	<input type="hidden" name="mKey" value="<%=anotherValue.get("mKey")%>">
 	<input type="hidden" name="currency" value="WON">
 	<!--  결제자 정보 -->
 	<input type="hidden" name="buyername" value="<%=orderDTO.getBuyerName()%>"><!--  결제자명 -->
@@ -17,8 +17,8 @@
 	<input type="hidden" name="buyeremail" value="<%=orderDTO.getBuyerEmail()%>"><!--  결제자 이메일 -->
 	<input type="hidden" name="goodname" value="<%=productLists.get(0).getPdd_name()%>"><!-- 상품명 -->
 	<input type="hidden" name="goodea" value="<%=counts[0]%>"><!-- 상품수 -->
-	<input type="hidden" name="returnUrl" value="http://localhost:8080/webpage/returnpage">
-	<input type="hidden" name="closeUrl" value="http://localhost:8080/webpage/closepage">
+	<input type="hidden" name="returnUrl" value="http://puhu17.cafe24.com/webpage/INIstdpay_pc_return.jsp">
+	<input type="hidden" name="closeUrl" value="http://puhu17.cafe24.com/webpage/close.jsp">
 </form>
 <script> payment= () => {
 	INIStdPay.pay("frm");
@@ -81,17 +81,17 @@
     
                                     <ul class="block block2 x1" id="mobile_cart_sale_tr_989">
                                         <li class="price_a">
-                                            <span class="ptitle">상품금액</span> <%=productLists.get(i).getPdd_nprice()%>&#x20a9;
+                                            <span class="ptitle">상품금액</span> <%=productLists.get(i).getPdd_nprice()*Integer.valueOf(counts[i])%>&#x20a9;
                                         </li>
                                         <li id="cart_sale_tr_989" class="price_b">
                                             <span class="ptitle">할인금액</span>
                                             <div id="cart_option_sale_total_989">
-                                               <%=Integer.valueOf(productLists.get(i).getPdd_nprice())-Integer.valueOf(productLists.get(i).getPdd_sprice())%>
+                                               <%=Integer.valueOf(productLists.get(i).getPdd_nprice())*Integer.valueOf(counts[i])-Integer.valueOf(productLists.get(i).getPdd_sprice())*Integer.valueOf(counts[i])%>
                                             </div>    
                                         </li>
                                         <li class="price_c">
                                             <span class="ptitle">할인적용금액</span>
-                                            <span class="total_p"><span id="option_suboption_price_sum_989"><%=productLists.get(i).getPdd_sprice()%></span>&#x20a9;</span>
+                                            <span class="total_p"><span id="option_suboption_price_sum_989"><%=productLists.get(i).getPdd_sprice()*Integer.valueOf(counts[i])%></span>&#x20a9;</span>
                                         </li>
                                     </ul>
                                 </div>

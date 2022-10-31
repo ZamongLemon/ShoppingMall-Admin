@@ -14,13 +14,14 @@
     int nsum = 0,ssum=0;
     int postCost = 0;
     for(int i = 0 ; i < len ; i++){
-    	nsum +=Integer.valueOf(productLists.get(i).getPdd_nprice());
-    	ssum +=Integer.valueOf(productLists.get(i).getPdd_sprice());
+    	nsum +=Integer.valueOf(productLists.get(i).getPdd_nprice()*Integer.valueOf(counts[i]));
+    	ssum +=Integer.valueOf(productLists.get(i).getPdd_sprice()*Integer.valueOf(counts[i]));
     }
     Map<String,String> vals = (Map<String,String>)request.getAttribute("vals");
     OrderDTO orderDTO = (OrderDTO)request.getAttribute("orderDetail");
     Map<String,String> signParam = (HashMap<String,String>)request.getAttribute("signParam");
-	
+     Map<String,String> anotherValue = (HashMap<String,String>)request.getAttribute("anotherValue");
+ 
     %>
     
 <!doctype html>

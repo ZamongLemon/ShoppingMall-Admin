@@ -59,7 +59,6 @@ public class AdminController2 {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		String savepath =  request.getSession().getServletContext().getRealPath("product/");
-		System.out.println(savepath);
 		Part main = request.getPart("pdd_imgurl");
 		Part sub1 = request.getPart("pdd_suburl");
 		Part sub2 = request.getPart("pdd_suburl2");
@@ -68,7 +67,6 @@ public class AdminController2 {
 		ArrayList<String> params = new ArrayList<String>();
 		while(paramse.hasMoreElements()) {
 			String pas = paramse.nextElement();
-			System.out.println(pas);
 			params.add(pas);
 			values.add(request.getParameter(pas));
 		}
@@ -91,8 +89,6 @@ public class AdminController2 {
 			System.out.println(e.getMessage());
 			response.getWriter().print("<script>alert('입력실패');history.back();</script>");
 		}
-		System.out.println(params);
-		System.out.println(values);
 		product_insert_m pim = new product_insert_m();
 		if(pim.input(values)) {
 			
@@ -159,7 +155,6 @@ public class AdminController2 {
 			vals.add(request.getParameter("a"));
 			String clarge = lgc+"00";
 			if(!cm.coverlap(clarge)) {
-				System.out.println("cpoint1");
 				ArrayList<String> vals2 = new ArrayList<>();
 				vals2.add(clarge);
 				vals2.add(lgc);
@@ -205,7 +200,6 @@ public class AdminController2 {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter pwr = response.getWriter();
 		String savepath =  request.getServletContext().getRealPath("") + "admin\\upload\\";	
-		System.out.println("here?");
 		Part filepart = request.getPart("bn_file");	
 		String bn_file = null;
 		String p = filepart.getSubmittedFileName().intern();
@@ -236,7 +230,6 @@ public class AdminController2 {
 		if(ont==null) vals.add("0"); else vals.add(ont);
 		vals.add(2,bn_file);
 		vals.add(request.getParameter("bn_idx"));
-		System.out.println(vals);
 		admin_notice_model nm = new admin_notice_model();
 		try {
 			if(nm.modify_notice(vals)) {				
