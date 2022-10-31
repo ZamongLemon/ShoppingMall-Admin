@@ -83,16 +83,14 @@
 	var codelist = [];
 	var codecnt =[];
  	cart.forEach( (obj) =>{
-//  		console.log(obj);
  		normaltotal += Number(obj.product.pdd_nprice)*Number(obj.count);
- 		saletotal += Number(obj.product.pdd_sprice)*Number(obj.count);
+		saletotal += Number(obj.product.pdd_sprice)*Number(obj.count);
  		codecnt = [obj.product.pdd_code,obj.count];
  		codelist.push(codecnt);
-//  		console.log(obj.count);
-//  		console.log(obj.product);
+ 		console.log(normaltotal);
+ 		console.log(saletotal);
  	})
-//  	console.log(codelist);
-//  	console.log(counts);
+
  	document.querySelector("#nPrice").innerText = normaltotal.toLocaleString();
 	document.querySelector("#sPrice").innerText = saletotal.toLocaleString();
 	document.querySelector("#saled").innerText = (normaltotal-saletotal).toLocaleString();

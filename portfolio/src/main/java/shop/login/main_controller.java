@@ -179,7 +179,7 @@ public class main_controller {
 
 	@RequestMapping("order")
 	public String toOrderCart(HttpServletRequest req, @RequestParam Map<String, String> val) {
-		System.out.println(val.get("codelists"));
+		
 		String[] codecounts = val.get("codelists").split(",");
 		String[] lists = new String[codecounts.length/2];
 		String[] counts = new String[codecounts.length/2];
@@ -189,8 +189,6 @@ public class main_controller {
 			counts[i] = codecounts[i*2+1];
 		}
 
-		System.out.println(Arrays.toString(counts));
-		System.out.println(Arrays.toString(lists));
 		req.setAttribute("cnts", counts);
 		ProductService productService = new ProductServiceImpl(dbsource);
 		List<ProductDTO> productLists = productService.getByCodes(lists);
@@ -203,7 +201,7 @@ public class main_controller {
 	@RequestMapping("cancel")
 	public String cancelOrder(String ord) {
 		OrderService orderService = new OrderServiceImpl(dbsource);
-		if(orderService.cancelOrder(ord)) {System.out.println("성공");}
+		if(orderService.cancelOrder(ord)) {}
 		
 		orderService = null;
 		
@@ -218,8 +216,6 @@ public class main_controller {
 		 * [이니시스] 결제수단 - CARD(신용카드),Directbank(계좌이체) 상품갯수, 회원(아이디)- 비회원(휴대폰)
 		 * 
 		 */
-		System.out.println(vals);
-		
 		String buyerName = vals.get("buyerName");
 		String buyerPhone = vals.get("buyerPhone0")+vals.get("buyerPhone1")+vals.get("buyerPhone2");
 		String buyerEmail = vals.get("buyerEmail");
@@ -261,7 +257,8 @@ public class main_controller {
 		req.setAttribute("cnts", counts);
 		ProductService productService = new ProductServiceImpl(dbsource);
 		List<ProductDTO> productLists = productService.getByCodes(lists);
-		System.out.println(productLists);
+		
+		
 		req.setAttribute("lists", productLists);
 		req.setAttribute("orderDetail", orderDTO);
 		String mid = "INIpayTest"; // 상점아이디
@@ -274,9 +271,10 @@ public class main_controller {
 		String price = sPrice.toString(); // 상품가격(특수기호 제외, 가맹점에서 직접 설정)
 
 		Map<String, String> signParam = new HashMap<String, String>();
-
-		signParam.put("mKey", mKey);
-		signParam.put("signature", signKey);
+		Map<String,String> anotherValue = new HashMap<String, String>();
+		anotherValue.put("mKey", mKey);
+		anotherValue.put("signature", signKey);
+		anotherValue.put("mid", mid);
 		signParam.put("oid", orderNumber);
 		signParam.put("price", price);
 		signParam.put("timestamp", timestamp);
@@ -284,6 +282,7 @@ public class main_controller {
 		String signature = SignatureUtil.makeSignature(signParam);
 		String person_post = req.getParameter("person_post");
 		req.setAttribute("signParam", signParam);
+		req.setAttribute("anotherValue", anotherValue);
 		req.setAttribute("signature", signature);
 		return "complet";
 	}
@@ -306,13 +305,4 @@ public class main_controller {
 		return null;
 	}
 	
-	@RequestMapping("returnpage")
-	public String test() {
-		return "INIstdpay_pc_return";
-	}
-	
-	@RequestMapping("closepage")
-	public String test2() {
-		return "close";
-	}
 }

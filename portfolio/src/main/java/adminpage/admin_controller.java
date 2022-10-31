@@ -190,7 +190,6 @@ public class admin_controller {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter pwr = response.getWriter();
 		String savepath =  request.getServletContext().getRealPath("") + "admin\\upload\\";	
-		System.out.println("here?");
 		Part filepart = request.getPart("bn_file");	
 		String bn_file = null;
 		String p = filepart.getSubmittedFileName().intern();

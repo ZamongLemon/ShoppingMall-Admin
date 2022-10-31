@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="shop.dao.ProductDTO"%>
 <%@page import="java.util.List"%>
@@ -10,10 +12,9 @@
     String[] codes = (String[])request.getAttribute("codes");
    
     int nsum = 0,ssum=0;
-    
-    for(int i = 0 ; i < len ; i++){
-    	nsum +=Integer.valueOf(productLists.get(i).getPdd_nprice());
-    	ssum +=Integer.valueOf(productLists.get(i).getPdd_sprice());
+   for(int i = 0 ; i < len ; i++){
+    	nsum +=Integer.valueOf(productLists.get(i).getPdd_nprice()*Integer.valueOf(counts[i]));
+    	ssum +=Integer.valueOf(productLists.get(i).getPdd_sprice()*Integer.valueOf(counts[i]));
     }
    
     %>
