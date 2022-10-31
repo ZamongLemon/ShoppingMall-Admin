@@ -11,8 +11,8 @@
 	<bean destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource" id="dbsource">
 <property value="com.mysql.jdbc.Driver" name="driverClassName"/>
 <property value="jdbc:mysql://umj7-009.cafe24.com:3306/puhu17" name="url"/>
-<property value="puhu17" name="username"/>
-<property value="p1o2i3u4!" name="password"/>
+<property value="" name="username"/>
+<property value="" name="password"/>
 	</bean>
 	
 </beans>
