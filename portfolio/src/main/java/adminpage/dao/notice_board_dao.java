@@ -104,18 +104,18 @@ public class notice_board_dao {
 			int p = 0;
 			try {
 				for(int i = 0 ; i < vals.length;i++) {
-				String sql = "delete from product_detail where pdd_idx = ?";
+				String sql = "delete from board_notice where bn_idx = ?";
 
 				ps = ct.prepareStatement(sql);						
 				ps.setObject(1, vals[i]);;
 				p  += ps.executeUpdate();					
 				}
+				ct.close();
 				res=(p>0)? true: false;
 					
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
-
 	return res;
 
 }}

@@ -106,9 +106,6 @@ background-color:#ffffff;}
 		});
 	});
 
-   	
-   	
-    loadbestproduct();
 </script>
 
 </body>
