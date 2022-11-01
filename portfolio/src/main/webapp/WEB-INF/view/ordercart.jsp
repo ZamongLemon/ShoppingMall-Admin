@@ -87,8 +87,7 @@
 		saletotal += Number(obj.product.pdd_sprice)*Number(obj.count);
  		codecnt = [obj.product.pdd_code,obj.count];
  		codelist.push(codecnt);
- 		console.log(normaltotal);
- 		console.log(saletotal);
+
  	})
 
  	document.querySelector("#nPrice").innerText = normaltotal.toLocaleString();
@@ -101,10 +100,40 @@
 		
 		f.codelists.value=codelist;
 		console.log(codelist);
-		f.submit();
-		
+		f.submit();		
 	}
+	var codeindex = [];
+	var idx = 0;
+	cart.forEach((obj) =>{
+		var ul2 = document.querySelector(".shipping_group_list");
+		ul2.innerHTML+="<li class='cart_goods'><div class='cart_goods_detail'><div class='cgd_top'><label><input type='checkbox' id='smallcbox"+idx+"' name='cart_option' /><span id='goodsName"+idx+"'class='goods_name'>예시 소파 상품명</span></label></div><div class='cgd_contents'><div class='block block1'><ul><li class='img_area'><a href=''><img id='img"+idx+"' src='./product/27921_temp_16329010671170list1.jpg' class='goods_thumb'></a></li><li class='option_area'><ul class='cart_option'><li><span class='xtle'>구성</span><div id='explain"+idx+"'>explain<div></li></ul><div class='cart_quantity'><span class='xtle'>수량</span> <div id='count"+idx+"'>1</div> <span class='add_txt'><div id='singleNpriceA"+idx+"'>1,790,000</div></span></div></li></ul></div><ul class='block block2' id='mobile_cart_sale_tr_987'><li class='price_a'><span class='ptitle'>상품금액</span> <div id='singleNprice"+idx+"'>1,790,000&#x20a9;</div></li><li class='price_b'><span class='ptitle'>할인금액</span>(-) <span id='saledPrice"+idx+"'>358,000&#x20a9;</span></li><li class='price_c'><span class='ptitle'>할인적용금액</span><span class='total_p' id='option_suboption_price_sum_987'><span id='sPrice"+idx+"'class='num'>1,432,000</span>&#x20a9;</span></li></ul><ul class='block block3'><li></li><li><button type='button' onclick='buysingle("+idx+")' class='btn_direct_buy btn_resp color2'>바로구매</button></li></ul></div></div></li>";
+		
+		var cbox = document.getElementById("smallcbox"+idx);
+		cbox.value=obj.product.pdd_code;
+		var img = document.getElementById("img"+idx);
+		img.src = obj.product.pdd_imgurl;
+		var name = document.getElementById("goodsName"+idx);
+		name.innerText= obj.product.pdd_name;
+		var explain = document.getElementById("explain"+idx);
+		var count = document.getElementById("count"+idx);
+		explain.innerText=obj.product.pdd_explain;
+		count.innerText=obj.count+"개";
+		var singleNpriceA = document.getElementById("singleNpriceA"+idx);
+		var singleNprice = document.getElementById("singleNprice"+idx);
+		singleNpriceA.innerText="("+Number(obj.product.pdd_nprice)+"₩)";
+		singleNprice.innerText=Number(obj.product.pdd_nprice)*Number(obj.count)+"₩";
+		var sPrice = document.getElementById("sPrice"+idx);
+		var saledPrice = document.getElementById("salePrice"+idx);
+		sPrice.innerText= obj.product.pdd_sprice*Number(obj.count);
+		salePrice = (Number(obj.product.pdd_nprice)-Number(obj.product.pdd_sprice))*Number(obj.count);
+		var vals =[obj.product.pdd_code,obj.count];
+		codeindex.push(vals);
+		idx++;		
+	})
+	buysingle =(idx) =>{
+		location.href="./orderSingle?code="+codeindex[idx][0]+"&count="+codeindex[idx][1];				
 	
+	}
 	
 </script>
 </html>

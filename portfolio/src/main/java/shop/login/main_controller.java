@@ -198,6 +198,25 @@ public class main_controller {
 		productService = null;
 		return "order";
 	}
+	
+	@RequestMapping("orderSingle")
+	public String orderSingle(HttpServletRequest req) {
+		
+		String[] lists = new String[1];
+		String[] counts = new String[1];
+		
+		counts[0] = req.getParameter("count");
+		lists[0] = req.getParameter("code");
+		req.setAttribute("cnts", counts);
+		req.setAttribute("codes", lists);
+		
+		ProductService productService = new ProductServiceImpl(dbsource);
+		List<ProductDTO> productLists = productService.getByCodes(lists);
+		req.setAttribute("lists", productLists);
+
+		productService = null;
+		return "order";
+	}
 	@RequestMapping("cancel")
 	public String cancelOrder(String ord) {
 		OrderService orderService = new OrderServiceImpl(dbsource);

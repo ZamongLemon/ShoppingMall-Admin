@@ -323,7 +323,7 @@
 						<li>
 							<ul class="basic_btn_area">
 								<li><button type="button" onclick = "addToCart()"class="btn_resp size_extra2 NpayNo"><span designElement="text" textIndex="107" >장바구니</span></button></li>
-								<li><button type="button" class="btn_resp size_extra2 color2 NpayNo"><span designElement="text" textIndex="109" >구매하기</span></button></li>
+								<li><button type="button" onclick = "orderSingle()" class="btn_resp size_extra2 color2 NpayNo"><span designElement="text" textIndex="109" >구매하기</span></button></li>
 							</ul>
 						</li>
 					</ul>
@@ -407,7 +407,14 @@
 				}
 			});
 		});
-		
+		const orderSingle = ()=>{
+			count = $("#pdcount").val();
+			code = "${productDTO.getPdd_code()}"
+			if(count!="" && count!= null){
+			location.href="./orderSingle?code="+code+"&count="+count;				
+			}
+			
+		}
 		const addToCart = () =>{
 			count = $("#pdcount").val();
 			code = "${productDTO.getPdd_code()}"
@@ -433,6 +440,7 @@
 					"pdd_saleper":"${productDTO.getPdd_saleper()}",
 					"pdd_sprice":"${productDTO.getPdd_sprice()}",
 					"pdd_imgurl":"${productDTO.getPdd_imgurl()}",
+					"pdd_name":"${productDTO.getPdd_name()}"
 			}
 
 			value = {
@@ -446,15 +454,12 @@
 				}else{
 					
 					localStorage.setItem("webpageCart",JSON.stringify(cart));
-					console.log(cart);
 					return;
 				}
 			}
 			
-			console.log(value);
 			cart.push(value);
 			localStorage.setItem("webpageCart",JSON.stringify(cart));
-			console.log(cart);
 			alert('장바구니에 추가되었습니다.');
 		};
 		

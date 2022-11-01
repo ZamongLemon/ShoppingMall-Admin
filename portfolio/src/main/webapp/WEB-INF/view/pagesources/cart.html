@@ -11,7 +11,7 @@
                 <!-- 전체 선택 -->
                 <ul class="cart_contents_top clearbox">
                     <li class="aa">
-                        <label class="checkbox_allselect"><input type="checkbox" class="btn_select_all" /> <span class="txt">전체선택</span></label>
+                        <label class="checkbox_allselect"><input type="checkbox"  name="ckAll" class="btn_select_all" /> <span class="txt">전체선택</span></label>
                     </li>
                     <li class="bb hide">
                         <input type="button" class="btn_resp size_b btn_shipping_modify" value="배송변경" />
@@ -34,64 +34,64 @@
                         </ul>
                     </li>
                     
+                   	
                     
-                    
-                    <li class="cart_goods" id="cart_goods_987">
-                        <div class="cart_goods_detail">
-                            <div class="cgd_top">
-                                <label>
-                                    <input type="checkbox" name="cart_option" value="987" stat="Y" rel="775" />
-                                    <span class="goods_name">예시 소파 상품명</span>
-                                </label>
-                            </div>
+<!--                     <li class="cart_goods" id="cart_goods_987"> -->
+<!--                         <div class="cart_goods_detail"> -->
+<!--                             <div class="cgd_top"> -->
+<!--                                 <label> -->
+<!--                                     <input type="checkbox" name="cart_option" value="987" stat="Y" rel="775" /> -->
+<!--                                     <span class="goods_name">예시 소파 상품명</span> -->
+<!--                                 </label> -->
+<!--                             </div> -->
                             
-                            <div class="cgd_contents">
-                                <div class="block block1">
-                                    <ul>
-                                        <li class="img_area">
-                                            <a href=""><img src="./product/27921_temp_16329010671170list1.jpg" class="goods_thumb"></a>
-                                        </li>
-                                        <li class="option_area">
+<!--                             <div class="cgd_contents"> -->
+<!--                                 <div class="block block1"> -->
+<!--                                     <ul> -->
+<!--                                         <li class="img_area"> -->
+<!--                                             <a href=""><img src="./product/27921_temp_16329010671170list1.jpg" class="goods_thumb"></a> -->
+<!--                                         </li> -->
+<!--                                         <li class="option_area"> -->
     
-                                            <ul class="cart_option">
-                                                <li><span class="xtle">구성</span> 거실장 1SET</li>
-                                            </ul>
-                                            <div class="cart_quantity"><span class="xtle">수량</span> 1개 <span class="add_txt">(1,790,000&#x20a9;)</span></div>
-                                        </li>
-                                    </ul>
-                                </div>
+<!--                                             <ul class="cart_option"> -->
+<!--                                                 <li><span class="xtle">구성</span> 거실장 1SET</li> -->
+<!--                                             </ul> -->
+<!--                                             <div class="cart_quantity"><span class="xtle">수량</span> 1개 <span class="add_txt">(1,790,000&#x20a9;)</span></div> -->
+<!--                                         </li> -->
+<!--                                     </ul> -->
+<!--                                 </div> -->
     
-                                <ul class="block block2" id="mobile_cart_sale_tr_987">
-                                    <li class="price_a">
-                                        <span class="ptitle">상품금액</span> 1,790,000&#x20a9;
-                                    </li>
-                                    <li class="price_b">
-                                        <span class="ptitle">
-                                            할인금액 
-                                        </span>
-                                        (-) <span id="mobile_cart_sale_987">358,000&#x20a9;</span>
-                                    </li>
-                                    <li class="price_c">
-                                        <span class="ptitle">할인적용금액</span>
-                                        <span class="total_p" id="option_suboption_price_sum_987"><span class="num">1,432,000</span>&#x20a9;</span>
-                                    </li>
-                                </ul>
+<!--                                 <ul class="block block2" id="mobile_cart_sale_tr_987"> -->
+<!--                                     <li class="price_a"> -->
+<!--                                         <span class="ptitle">상품금액</span> 1,790,000&#x20a9; -->
+<!--                                     </li> -->
+<!--                                     <li class="price_b"> -->
+<!--                                         <span class="ptitle"> -->
+<!--                                             할인금액  -->
+<!--                                         </span> -->
+<!--                                         (-) <span id="mobile_cart_sale_987">358,000&#x20a9;</span> -->
+<!--                                     </li> -->
+<!--                                     <li class="price_c"> -->
+<!--                                         <span class="ptitle">할인적용금액</span> -->
+<!--                                         <span class="total_p" id="option_suboption_price_sum_987"><span class="num">1,432,000</span>&#x20a9;</span> -->
+<!--                                     </li> -->
+<!--                                 </ul> -->
     
-                                <ul class="block block3">
-                                    <li><button type="button" class="btn_option_modify btn_resp">옵션/수량변경</button></li>
-                                    <li><button type="button" class="btn_direct_buy btn_resp color2">바로구매</button></li>
-                                </ul>
+<!--                                 <ul class="block block3"> -->
+<!--                                     <li><button type="button" class="btn_option_modify btn_resp">옵션/수량변경</button></li> -->
+<!--                                     <li><button type="button" class="btn_direct_buy btn_resp color2">바로구매</button></li> -->
+<!--                                 </ul> -->
     
-                            </div>
-                        </div>
-                    </li>
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </li> -->
                 </ul>
                 </div>
             </div>
     
             <!-- 버튼 그룹 -->
             <div class="selected_btn_groups">
-                <label class="checkbox_allselect"><input type="checkbox" class="btn_select_all" /> <span class="txt">전체선택</span></label>
+                <label class="checkbox_allselect"><input type="checkbox" name="ckAll2" class="btn_select_all" /> <span class="txt">전체선택</span></label>
                 
                 <div class="btns">
                     <button type="button" class="btn_resp size_b color2 btn_selected_order">선택상품 주문하기</button>
@@ -142,6 +142,39 @@
         
         <script>
         
-    	clean = () => {localStorage.clear();location.reload();}
- 
+    	clean = () => {
+    		var cart = JSON.parse(localStorage.getItem("webpageCart"))|| [];
+    		var cboxs = document.getElementsByName("cart_option");    			
+    		console.log(cart);
+    		cboxs.forEach((cbox) =>{
+    			var code = cbox.value;
+    		if(cbox.checked){
+
+	   				cart = cart.filter((obj)=>{
+    					return obj.product.pdd_code!=code;
+    				});
+
+    		}
+    		});
+    		localStorage.setItem("webpageCart",JSON.stringify(cart));
+    		location.reload();
+    	}
+    	document.querySelector("[name='ckAll']").onchange= (event)=>{ 
+    		document.querySelector("[name='ckAll2']").checked = document.querySelector("[name='ckAll']").checked;
+    		cka();
+    	};
+    	document.querySelector("[name='ckAll2']").onchange=(even) =>{
+    		document.querySelector("[name='ckAll']").checked = document.querySelector("[name='ckAll2']").checked;
+    		cka();
+    	}
+    	cka = ()=>{
+    		var s = document.getElementsByName("cart_option");
+    		s.forEach((obj)=>{
+    			var ckd = document.querySelector("[name='ckAll']").checked;
+    			obj.checked = ckd;
+    		});
+    	}
+    	
+    	
+    	
     	</script>
